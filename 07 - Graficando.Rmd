@@ -1,0 +1,192 @@
+---
+title: "07 - Graficando"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(patchwork)
+```
+
+La estadística necesita representar la información de modos poderosos para analizar datos y comunicar conclusiones. Además RStudio tiene un framework para graficar (ggplot2) muy potente que se basa en la gramática de gráficos. Aquí presentaremos los dos aspectos juntos, ya que la gramática de grágicos está pensada para la estadística fundamentalmente y por lo tanto tienen los mismos objetivos.
+
+Todo gráfico tiene algunas cosas en común:
+
+-   datos
+-   área de graficado
+-   escala
+-   leyendas
+-   transformaciones
+-   etc
+
+## Gráfico mínimo
+
+En ggplot2 se define un objeto gráfico y con " + " se van agregando capas de información.
+
+Como se trata de un paquete de Tidyverse, la estructura de los datos es Tidy con formato tibble().
+
+La función aes() define el "mapeo de los datos", en el caso de ejemplo le estamos diciendo que use como variable de ordenadas (x) la variable var1 y como abscisas (y) la variable var2.
+
+Finalmente le decimos que construya un gráfico de líneas (geom_line, es la manera de decirle que la geometría del gráfico es de líneas).
+
+```{r}
+# Primero generamos una set de datos
+data <- tibble(var1 = -10:10, var2 = var1 ^ 2)
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = var1, y = var2) +
+  geom_line()
+
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+Esos tres aspectos son obligatorios y cualquier gráfico debe definirlos: los datos, el mapeo y la geometría.
+
+Veremos seguidamente las geometrías básicas que deben conocerse en estadística descriptiva, tanto por su potencia para sintetizar datos extensos y/o complejos como porque son extensamente utilizados.
+
+## Tipos de gráficos.
+
+-   Histograma
+-   Gráfico de densidad
+-   BoxPlot (o cajas y bigotes)
+-   Gráfico de Columnas / Barras
+-   Gráfico de dispersión
+-   Gráfico de líneas
+-   Coordenadas polares
+
+### Histograma
+
+```{r}
+# Primero generamos una set de datos
+data <- filter(iris, Species == "setosa")
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_histogram()
+
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+### Gráfico de densidad
+
+```{r}
+# Primero generamos una set de datos
+data <- filter(iris, Species == "setosa")
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_density()
+
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+### BoxPlot y Violin
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(y = Petal.Length, x = Species) +
+  geom_boxplot()# +
+#  geom_jitter()
+
+grafico2 <- ggplot(data) +
+  aes(y = Petal.Length, x = Species) +
+  geom_violin()# +
+#  geom_jitter()
+
+# Finalmente dibujamos el gráfico creado
+grafico1 + grafico2
+```
+
+
+### Gráfico de Columnas (Barras es cuando las columnas son horizontales y se llama geom_bar)
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Species, y = Sepal.Length) +
+    geom_col()
+
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+
+### Gráfico de dispersión
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Sepal.Length, y = Sepal.Width, color = Species, alpha = 0.5) +
+    geom_point()# +
+#    geom_smooth(method=lm, se=FALSE)
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+
+### Gráfico de líneas
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Sepal.Length, y = Sepal.Width, color = Species) +
+    geom_line()
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+
+### Coordenadas polares
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Sepal.Length, y = Sepal.Width, color = Species) +
+    geom_line() + 
+    coord_polar(theta = "x")
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+Sitios con colecciones de gráficos en ggplot2, con explicaciones y código.
+
+The R Graph Gallery (en inglés)
+https://r-graph-gallery.com/index.html
+
+R Charts (en español)
+https://r-charts.com/es/ggplot2/
+
+GRÁFICOS EN R (R CODER, en español). Gráficos de R-base, No son ggplot2!
+https://r-coder.com/graficos-r/
+
+r-statistics.co (en inglés)
+https://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+
+Guía oficial de ggplot2 (en inglés)
+https://ggplot2.tidyverse.org/
+
+Statology (R Guides) (en inglés)
+Este sitio tiene de guías cortas y muy bien explicadas para estadística en general. Tiene una sección de R, y dentro de ella muchas guías para graficar con ggplot2
+https://www.statology.org/r-guides/

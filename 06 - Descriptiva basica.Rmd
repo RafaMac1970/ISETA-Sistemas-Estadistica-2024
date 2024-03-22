@@ -1,0 +1,57 @@
+---
+title: "06 - Descriptiva basica"
+output: html_notebook 
+---
+
+```{r}
+library(tidyverse)
+# library(crosstable)
+library(ggplot2)
+library(GGally)
+```
+
+```{r}
+diamonds
+```
+
+```{r fig.height=10, fig.width=12, message=FALSE, warning=FALSE}
+diamonds %>% 
+  subset(y < 20) %>% subset(z < 10) %>% # para quitar 3 puntos outliers
+  ggpairs(columns = c(1,5:10), aes(color = cut, alpha = 0.5))
+#ggpairs(diamonds, aes(color = cut, alpha = 0.5))
+```
+
+```{r}
+gr1 <- ggplot(diamonds, aes(depth)) + 
+  geom_histogram()
+gr1
+```
+
+```{r}
+unaTablita <- table(cut(diamonds$depth, breaks = c(54,56,58,60,62,64,66,68,70)))
+prop.table(unaTablita)
+unaTablita
+```
+```{r}
+# CrossTable(diamonds$color, diamonds$cut, prop.t=TRUE, prop.r=TRUE, prop.c=TRUE)
+```
+
+  
+```{r}
+summary(diamonds)
+```
+
+```{r fig.height=10, fig.width=12}
+gr2 <- ggplot(diamonds, aes(x = color, y = carat)) + 
+  geom_boxplot() +
+  facet_grid(rows = vars(cut), cols = vars(clarity))
+gr2
+```
+
+```{r fig.height=10, fig.width=12}
+gr3 <- ggplot(diamonds, aes(x = carat, y = depth)) + 
+  geom_violin() +
+#    geom_dotplot() +
+  facet_grid(rows = vars(color), cols = vars(clarity))
+gr3
+```

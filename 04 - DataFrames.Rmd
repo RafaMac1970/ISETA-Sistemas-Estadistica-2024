@@ -1,0 +1,175 @@
+---
+title: "04 - Data Frames"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse) 
+setwd("~/Proyectos/R-ISETA/Sistemas/ISETA-Sistemas")
+```
+
+Hay muchos frameworks de estructuras de datos en R. Voy a describir muy someramente el más básico y luego con más detalle el de Tidyverse, y en particular la estructura Tidy.
+
+# La estructura por defecto de R.
+
+## Crear Data Frames
+
+Existen muchas fromas de crear Data Frames, cada una depende del modo en que tengamos la información.
+
+1. Crear Data Frame con los datos en un comando.
+2. Crear vectores con al información y luego unirlos en un data frame.
+3. Crear una matriz y luego convertirla en data frame.
+4. Crear el data frame leyendo los datos de un archivo .csv
+
+### 1. Crear Data Frame con los datos en un comando.
+
+```{r}
+unDataFrame1 <- data.frame(
+  "entero" = 1:4,
+  "factor" = c("a", "b", "c", "d"),
+  "numero" = c(1.2, 3.4, 4.5, 5.6),
+  "cadena" = as.character(c("e", "f", "g", "h"))
+)
+
+unDataFrame1
+```
+
+### 2. Crear vectores con al información y luego unirlos en un data frame.
+
+```{r}
+entero <- 1:4
+factor <- c("a", "b", "c", "d")
+numero <- c(1.2, 3.4, 4.5, 5.6)
+cadena <- as.character(c("e", "f", "g", "h"))
+
+unDataFrame2 <- data.frame(entero, factor, numero, cadena)
+unDataFrame2
+```
+
+### 3. Crear una matriz y luego convertirla en data frame.
+
+Las matrices tienen todos los datos numéricos, de modo que sólo podemos crear un data frame de datos numéricos
+
+```{r}
+matriz1 <- matrix(1:12, ncol = 4)
+unDataFrame3 <- data.frame(matriz1)
+unDataFrame3
+```
+
+### 4. Crear el data frame leyendo los datos de un archivo .csv
+
+```{r}
+#library(readr)
+unDataFrame4 <- read.csv("datos/datitos1.csv")
+unDataFrame4
+```
+
+## Acceder a la información
+
+### Acceder a una columna completa
+
+```{r}
+unDataFrame4$factor
+unDataFrame4[,2]
+```
+
+### Acceder a una fila completa
+
+```{r}
+unDataFrame4[2,]
+```
+
+### Acceder a una sola celda
+
+```{r}
+unDataFrame4[2,2]
+```
+
+# Tidyverse y estructuras Tidy (paquete tidyr). 
+
+https://www.tidyverse.org
+Cheatsheet https://github.com/rstudio/cheatsheets/blob/master/tidyr.pdf
+
+1. Cata columna (column) es una variable medida sobre la observación.
+2. Cada fila (row) representa una observación.
+3. Cada celda es un valor único.
+
+El siguiente es un ejemplo que no es Tidy, porque cada fila no es sólo una mediciónde la población, sino una para cada año. Para transformarla es necesario agregar dos columnas, una para el año y otra para la población y reordenar las columnas por año dentro de esas doscolumnas.
+
+```{r}
+world_bank_pop
+```
+
+De esta manera el data frame adopta una estructura Tidy
+
+```{r} 
+# Pongo los años en un vector para simplificar la lectura de la transformación
+anios <- as.character(2000:2017)
+
+# Transformo el dataframe en Yidy
+wbPop <- pivot_longer(world_bank_pop, all_of(anios), names_to = "year", values_to = "population")
+
+# Como los años quedaron con formato de carácter (porque los nombres de columna soncarácter) los convierto a número
+wbPop <- type_convert(wbPop, col_types = cols( year = col_double()))
+
+# Ahora se puede seleccionar una parte del dataset
+wbPop <- subset(wbPop, indicator == 'SP.POP.TOTL')
+wbPop <- subset(wbPop, country == 'ARG' | country == 'ROU' | country == 'CHE')
+wbPop
+```
+
+Una vez obtenido el dataframe con la información de interrés podemos generar información a partir de ella (en este caso la graficamos).
+
+```{r}
+ggplot(wbPop, aes(x = year, y = population, color = country)) + 
+    geom_line() + 
+    ylim(0,50000000)
+```
+
+# Pipes %>% 
+
+Pipe significa cañería. Es como si a medida que los datos pasan por una cañería les vamos haciendo cosas, de modo que lo que hacemos en una etapa transforma lo que llegó por la cañería y sigue camino por la cañería transformado a la siguiente etapa.
+
+El proceso anterior se puede realizar con pipes de la siguiente manera
+
+```{r}
+anios <- as.character(2000:2017)
+
+world_bank_pop %>% 
+  pivot_longer(anios, names_to = "year", values_to = "population")  %>% 
+  type_convert(col_types = cols( year = col_double())) %>%
+  subset(country == 'ARG' | country == 'ROU' | country == 'CHE') %>% 
+  subset(indicator == 'SP.POP.TOTL') %>% 
+  ggplot(aes(x = year, y = population, color = country)) + 
+    geom_line() + 
+    ylim(0,50000000)
+```
+
+```{r}
+world_bank_pop %>% 
+  pivot_longer(anios, names_to = "year", values_to = "population")  %>% 
+  type_convert(col_types = cols( year = col_double() ) ) %>%
+  subset(country == 'ARG' | country == 'ROU' | country == 'CHE') %>% 
+  subset(indicator == 'SP.POP.TOTL') %>% 
+  group_by(country)  %>% 
+  reframe(media = mean(population), variacion = sd(population), prob = c(0.25, 0.75), qs = quantile(population, c(0.25, 0.75)))
+```
+
+
+# Tibble
+
+## Crar un data frame Tibble
+
+```{r}
+iris %>% as_tibble() %>% 
+  subset(Species == 'setosa') %>% 
+  summary()
+
+```
+
+```{r}
+cars %>%as_tibble() %>%
+   subset(speed > 20) %>% 
+   summary()
+```
+

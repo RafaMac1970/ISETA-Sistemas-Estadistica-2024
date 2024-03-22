@@ -1,0 +1,78 @@
+---
+title: "05 - Built-in datasets"
+output: html_notebook 
+---
+
+#Built in databases
+```{r}
+library(help = "datasets")
+data()
+```
+
+co2 != CO2
+who
+world_bank_pop
+ToothGrowth
+
+```{r}
+a <- iris
+a
+```
+
+```{r fig.height=10, fig.width=12, message=FALSE, warning=FALSE}
+library(GGally)
+ggpairs(iris,aes(color = Species, alpha = 0.5))
+```
+
+Iris setosa
+https://search.brave.com/images?q=irissetosa&source=web&img=104
+
+Iris versicolor
+https://www.jardin2m.com/Content/Images/Vegetaux/29IRVERS.jpg
+
+Iris virginica
+https://imgs.search.brave.com/RL8PDV1Fb6X3z_brQvsexvB4IUzLJBnrZeAWq0K_b48/rs:fit:540:720:1/g:ce/aHR0cDovL3d3dy5t/aW5uZXNvdGF3aWxk/Zmxvd2Vycy5pbmZv/L3VkYXRhL3I5bmRw/MjNxL3BkL2lyaXMt/dmlyZ2luaWNhLTgu/anBn
+
+## Gapminder
+```{r}
+library(gapminder)
+gapminder %>% 
+  str()
+```
+
+```{r}
+gapminder %>% 
+  head()
+```
+
+```{r}
+vector_paises = c("Argentina", "Peru", "Bolivia")
+gapminder %>% 
+  filter(country  %in%  vector_paises) %>% 
+  select(country, year, lifeExp, gdpPercap)
+```
+
+```{r}
+library(ggplot2)
+gapminder %>% 
+  filter(year >= 1990) %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() + 
+  facet_wrap(~ continent)
+```
+
+```{r}
+paises <- c("Peru", "Bolivia", "Argentina")
+
+gapminder %>% 
+  filter(country %in% paises) %>% 
+  ggplot() +
+  aes(x = year, y = gdpPercap, color = country) +
+  geom_line()
+```
+
+
+```{r}
+ggpairs(ToothGrowth,aes(color = factor(dose), alpha = 0.5))
+```
+
