@@ -3,19 +3,32 @@ title: "01 - Bases de R"
 output: html_notebook
 ---
 
-R es un entorno que permite realizar una enorme cantidad de análisis estadísticos y matemáticos. El R-base tiene las bases para cualquier análisis y las herramientas para desarrollar los otros paquetes. Además de la programación estadística y matemática, R es un entorno de programación orientado a objetos, aunque las parte estadística responde más al parafigma funcional. 
+R es un entorno que permite realizar una enorme cantidad de análisis estadísticos y matemáticos. El R-base tiene las bases para cualquier análisis y las herramientas para desarrollar los otros paquetes. Además de la programación estadística y matemática, R es un entorno de programación orientado a objetos, aunque las parte estadística responde más bien al paradigma funcional. 
 
-Por esa razón es muy frecuente que al inicio de cualquier Notebook en RStudio, o stript en R-base, se carguen las librerías (paquetes de sofware) necesarias para los análisis que necesitemos realizar.
+Por esa razón es muy frecuente que al inicio de cualquier Notebook en RStudio, o script en R-base, se carguen las librerías (paquetes de sofware) necesarias para los análisis que necesitemos realizar. Es importante destacar que para poder usar un paquete tiene que estar instalado en nuestro sistema previamente.
+
+Para instalar un paquete podemos hacerlo con el comando install.packages(), sin embargo, como es necesario instalarlo sólo una vez, puede hacerse de la siguiente manera (este comando lo instala si no está previamente instalado en el sistema):
 
 ```{r}
-library(lubridate)
-library(ggplot2)
+if(!require("tidyverse")){
+    install.packages("tidyverse")
+}
+```
+
+Para usar un paquete previamente instalado lo cargamos con el comando library(). Esto se realiza sólo una vez por sesión, por esa razón se lo pone en un chunk aparte y al inicio del documento:
+
+```{r}
+library("tidyverse")
+library("lubridate")
+library("ggplot2")
 ```
 
 Seguidamente haremos una brevísima síntesis de las herramientas básicas para trabajar en este entorno.
 
 # Sintaxis básica
+
 ## Operadores Aritméticos
+
 Operación           Símbolo
 -----------------   --------------
 Suma                +
@@ -31,6 +44,7 @@ Raíz cuadrada       sqrt()
 Asignación          <- ó -> ó = (no recomendado =)
 
 ## Operadores lógicos
+
 Operación           Símbolo
 -----------------   --------------
 y                   &
@@ -43,8 +57,10 @@ Menor igual         <=
 Igual               ==
 Distinto            !=
 
-## Tipos de datos (Numeric, character , logical, POSIX)
+## Tipos de datos (Numeric, character , logical, y varios tipos para fechas y tiempos)
+
 ### Numeric
+
 ```{r}
 a <- 1
 a
@@ -66,7 +82,9 @@ e <- (-b - sqrt(b^2 - 4*a*c) ) / ( 2*a )
 e
 class(e) # "numeric"
 ```
+
 ### Character
+
 ```{r}
 
 f <- "b"
@@ -83,7 +101,9 @@ paste(f, g, sep = "-")
 paste(b, g, sep = "-")
 
 ```
+
 ### Logical
+
 ```{r}
 a
 b
@@ -98,7 +118,9 @@ b > c & a < d
 b > c | a < d 
 ! b > c | a < d
 ```
+
 ### Date and Time.
+
 ```{r}
 instante <- now()
 instante # "2023-03-19 14:55:24 -03"
@@ -123,6 +145,7 @@ week(hoy)
 ```
 
 # Estructuras de datos
+
 Dimensiones	    Homogeneous	    Heterogeneous
 ------------    ------------    --------------
 1d	            Vector          List
@@ -130,7 +153,9 @@ Dimensiones	    Homogeneous	    Heterogeneous
 nd	            Array
 
 ## Vectores
+
 Los vectores son conjuntos ordenados de objetos de la misma clase (o type). Se instancian con c(). Pueden contenercualquier tipo de objetos mientras sean del mismo tipo y los fuerza al mismo tipo por defecto. Las operaciones básicas funcionan elemento a elemento.
+
 ```{r}
 x <- c(1, 7, 3)
 y <- c(9, 4, 5.2)
@@ -150,7 +175,9 @@ x ^ y   # 1 2401  243
 z <- c(1, 2.5, 3/7, "f")
 z
 ```
+
 ### Generador de secuencias
+
 ```{r}
 # Generan un vector con los elementos de la secuencia
 vec1 <- c(1:10) # Desde : hasta
@@ -159,7 +186,8 @@ vec1
 vec2
 ```
 
-### Acceder a sus elementos
+### Acceder a los elementos de un vector
+
 ```{r}
 # Vector
 x[1] # 1
@@ -170,6 +198,7 @@ vec2[3:7]
 ```
 
 ## Matrices
+
 ```{r}
 s <- matrix(1:6, nrow = 2, ncol = 3)
 t <- matrix(8:13, nrow = 2, ncol = 3)
@@ -195,7 +224,8 @@ s + t
 
 ```{r}
 # Multiplicación de matrices elemento a elemento
-print("s * t Es el producto términoa término, ambas matricesdeben tener las mismas dimensiones")
+print("s * t Es el producto términoa término, ambas matrices deben tener las mismas dimensiones")
+writeLines("\n")
 s * t
 ```
 
@@ -213,6 +243,7 @@ z
 
 writeLines("\n")
 print("w %*% z Es el producto matricial, ej del primer valor 8*1 + 10*2 + 12*3 = 64")
+writeLines("\n")
 w %*% z
 
 # Producto exterior
@@ -223,10 +254,12 @@ w %*% z
 # Producto Kronecker
 writeLines("\n")
 print("w %x% z Producto Kronecker")
+writeLines("\n")
 w %x% z
 ```
 
 ### Acceder a sus elementos
+
 ```{r}
 # Matriz
 
@@ -248,7 +281,9 @@ s[,1] # 1 2
 t[,3] # 12 13
 ```
 ## Array.
+
 En este caso lo veremos en 3D, pero puede usarse en cualquier dimensión
+
 ```{r}
 # Crear vectores, pueden tener diferente longitud. También se puede hacer desde un solo vector.
 vector1 <- c(5,9,3)
@@ -261,6 +296,7 @@ print(unArray3D)
 ```
 
 ### Acceder a sus elementos
+
 ```{r}
 unArray3D[3,1,2]
 
@@ -272,8 +308,11 @@ unArray3D[,2,]
 ```
 
 ## Estructuras de datos heterogéneos
+
 ## Listas
+
 Pueden almacenar cualquier objeto.
+
 ```{r}
 h <- list(12, s, t, w, z, now(), y, TRUE)
 h
@@ -281,6 +320,7 @@ class(h)
 ```
 
 En una lista los objetos pueden nombrarse
+
 ```{r}
 unaLista <- list(nombre = "Rafael", apellido = "Mac Donough", fechaDeNacimiento = ymd("1970-08-23"), dni = 21486775, esHombre = TRUE)
 unaLista$fechaDeNacimiento
@@ -288,6 +328,7 @@ unaLista[2]
 ```
 
 ### Acceder a sus elementos
+
 ```{r}
 # Observar que hay dos pares de [[ ]]
 
@@ -298,7 +339,9 @@ h[[8]]
 ```
 
 ## Data Frames
+
 Puede tener diferentes tipos de datos en diferentes columnas (variables), pero dentro de la columna los tipos de datos deben ser homogéneos.
+
 ```{r}
 unDataFrame1 <- data.frame(
   "entero" = 1:4, 
@@ -310,6 +353,7 @@ str(unDataFrame1)
 unDataFrame1
 ```
 ### Acceder a sus elementos
+
 ```{r}
 unDataFrame1[[1]]
 unDataFrame1$factor
@@ -320,9 +364,13 @@ unDataFrame1$cadena[3]
 ```
 
 # Vamos a mostrar los procesos detrás de las funciones básicas
+
 ## Primero las funciones
+
 Trabajemos con los datos vuestros, las medidas de las hojas. 
+
 Largo, ancho, cantidad de folíolos, largo del pecíolo (distancia.)
+
 ```{r}
 largos <- c(288,358,343,365,379,395,381)
 anchos <- c(179,216,216,219,221,232,230)
@@ -346,6 +394,7 @@ min(largos)
 ```
 
 ## Esto es para mostrar el proceso que realizan las funciones anteriores
+
 ```{r}
 suma <- 0 
 for (i in largos) {
@@ -386,6 +435,7 @@ mini
 ```
 
 ### Cómo se ordena?
+
 ```{r}
 sort(largos)
 
@@ -404,6 +454,7 @@ largosOrd
 ```
 
 ## Y aquí la mediana
+
 ```{r}
 if (length(largosOrd) %% 2 == 0) {
   (largosOrd[length(largosOrd) / 2] + largosOrd[(length(largosOrd) / 2) + 1]) / 2
@@ -413,13 +464,16 @@ if (length(largosOrd) %% 2 == 0) {
 ```
 
 # Grafiquemos
+
 ## Primero armamos un data frame donde estén todas las variables medidas.
+
 ```{r}
 dfHojas <- data.frame(largos, anchos, foliolos, peciolos)
 dfHojas
 ```
 
 ## Box Plot
+
 ```{r}
 boxplot(dfHojas, ylim=c(0,400), ylab = "Largo (cm)", xlab= "variable")
 #boxplot(largos, ylim=c(0,460), ylab = "Largo (cm)", xlab= "muestra")

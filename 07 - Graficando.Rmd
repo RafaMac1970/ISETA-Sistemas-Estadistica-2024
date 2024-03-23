@@ -53,20 +53,57 @@ Veremos seguidamente las geometrías básicas que deben conocerse en estadístic
 -   Gráfico de densidad
 -   BoxPlot (o cajas y bigotes)
 -   Gráfico de Columnas / Barras
--   Gráfico de dispersión
+-   Gráfico de dispersión (coordenadas cartesianas)
 -   Gráfico de líneas
 -   Coordenadas polares
+-   Matriz Gráfica de correlación
 
 ### Histograma
 
+SIEMPRE hay que conocer la estructura de los datos y tenemos que saber lo que queremos graficar. En este ejemplo si le pedimos que grafique sin separar por especie hace un histograma con todo mezclado.
+
+La primera opción es filtrar la base de datos para dejar una sola especie y hacer el histograma de esa manera. Si quiero ver el histograma de otra especie debo cambiar el nombre (pruebe comentando la línea 69 y descomentando la 70).
+
 ```{r}
 # Primero generamos una set de datos
-data <- filter(iris, Species == "setosa")
+data <- iris
+#data <- filter(iris, Species == "setosa")
 
 # Luego creeamos el gráfico
 grafico1 <- ggplot(data) +
   aes(x = Petal.Length) +
   geom_histogram()
+
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+Otra alternativa es pedirle que pinte las columnas diferenciando entre especies (aquí con el parámetro fill).
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Petal.Length, fill = Species, alpha = 0.5) +
+  geom_histogram()
+
+# Finalmente dibujamos el gráfico creado
+grafico1
+```
+
+Como en el caso anterior dos especies están solapadas, podemos separar los histogramas en gráficos aparte con la función facet.
+
+```{r}
+# Primero generamos una set de datos
+data <- iris
+
+# Luego creeamos el gráfico
+grafico1 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_histogram() + 
+  facet_wrap(vars(Species), dir = "v") # facet repite el gráfico separando los datos de acuerdo a la variable indicada
 
 # Finalmente dibujamos el gráfico creado
 grafico1
@@ -170,6 +207,20 @@ grafico1 <- ggplot(data) +
 # Finalmente dibujamos el gráfico creado
 grafico1
 ```
+
+### Matriz Gráfica de correlación
+
+Hay que tener cuidado con este tipo de gráfico, tanto delde el punto de vista estadístico como desde su uso con ggplot2. ggpairs() es una función que se encuentra en un paquete diferente a Tidyverse, está en GGally, que usa a ggplot2 como base, pero no todo funciona igual (por ejemplo no se puede poner aes() fuera de la función ggpairs() ).
+
+Desde el punto de vista estadístico al relacionar todo con todo nos da una idea general del grupo de datos, pero cualquier hipótesis que se nos ocurra al observar la matriz y analizarla debemos corroborarla con análisis complementarios.
+
+```{r, fig.width=12, message=FALSE, warning=FALSE}
+library(GGally)
+ggpairs(iris, aes(color = Species, alpha = 0.5))
+  
+```
+
+
 Sitios con colecciones de gráficos en ggplot2, con explicaciones y código.
 
 The R Graph Gallery (en inglés)

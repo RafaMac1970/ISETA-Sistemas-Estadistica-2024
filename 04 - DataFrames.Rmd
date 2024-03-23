@@ -3,6 +3,8 @@ title: "04 - Data Frames"
 output: html_notebook
 ---
 
+`Nota para Rafa: Este notebook debo mejorarlo, hay que agregarle otras formas de crear y alimentar tibbles. Por ejemplo, crear un tibble vacío y llenarlo de información usando bucles.`
+
 ```{r}
 library(tidyverse) 
 setwd("~/Proyectos/R-ISETA/Sistemas/ISETA-Sistemas")
@@ -16,10 +18,10 @@ Hay muchos frameworks de estructuras de datos en R. Voy a describir muy somerame
 
 Existen muchas fromas de crear Data Frames, cada una depende del modo en que tengamos la información.
 
-1. Crear Data Frame con los datos en un comando.
-2. Crear vectores con al información y luego unirlos en un data frame.
-3. Crear una matriz y luego convertirla en data frame.
-4. Crear el data frame leyendo los datos de un archivo .csv
+1.  Crear Data Frame con los datos en un comando.
+2.  Crear vectores con la información y luego unirlos en un data frame.
+3.  Crear una matriz y luego convertirla en data frame.
+4.  Crear el data frame leyendo los datos de un archivo .csv
 
 ### 1. Crear Data Frame con los datos en un comando.
 
@@ -85,16 +87,15 @@ unDataFrame4[2,]
 unDataFrame4[2,2]
 ```
 
-# Tidyverse y estructuras Tidy (paquete tidyr). 
+# Tidyverse y estructuras Tidy (paquete tidyr).
 
-https://www.tidyverse.org
-Cheatsheet https://github.com/rstudio/cheatsheets/blob/master/tidyr.pdf
+<https://www.tidyverse.org> Cheatsheet <https://github.com/rstudio/cheatsheets/blob/master/tidyr.pdf>
 
-1. Cata columna (column) es una variable medida sobre la observación.
-2. Cada fila (row) representa una observación.
-3. Cada celda es un valor único.
+1.  Cada columna (column) es una variable medida sobre la observación.
+2.  Cada fila (row) representa una observación.
+3.  Cada celda es un valor único.
 
-El siguiente es un ejemplo que no es Tidy, porque cada fila no es sólo una mediciónde la población, sino una para cada año. Para transformarla es necesario agregar dos columnas, una para el año y otra para la población y reordenar las columnas por año dentro de esas doscolumnas.
+El siguiente es un ejemplo que no es Tidy, porque cada fila no es sólo una medición de la población, sino una para cada año. Para transformarla es necesario agregar dos columnas, una para el año y otra para la población y reordenar las columnas por año dentro de esas dos columnas.
 
 ```{r}
 world_bank_pop
@@ -102,14 +103,14 @@ world_bank_pop
 
 De esta manera el data frame adopta una estructura Tidy
 
-```{r} 
+```{r}
 # Pongo los años en un vector para simplificar la lectura de la transformación
 anios <- as.character(2000:2017)
 
 # Transformo el dataframe en Yidy
 wbPop <- pivot_longer(world_bank_pop, all_of(anios), names_to = "year", values_to = "population")
 
-# Como los años quedaron con formato de carácter (porque los nombres de columna soncarácter) los convierto a número
+# Como los años quedaron con formato de carácter (porque los nombres de columna son carácter) los convierto a número
 wbPop <- type_convert(wbPop, col_types = cols( year = col_double()))
 
 # Ahora se puede seleccionar una parte del dataset
@@ -126,9 +127,9 @@ ggplot(wbPop, aes(x = year, y = population, color = country)) +
     ylim(0,50000000)
 ```
 
-# Pipes %>% 
+# Pipes %\>%
 
-Pipe significa cañería. Es como si a medida que los datos pasan por una cañería les vamos haciendo cosas, de modo que lo que hacemos en una etapa transforma lo que llegó por la cañería y sigue camino por la cañería transformado a la siguiente etapa.
+Pipe significa cañería. Es como si a medida que los datos pasan por una cañería les vamos haciendo cosas, de modo que lo que hacemos en una etapa transforma lo que llegó por la cañería y sigue camino por la cañería que lo sigue transformado en la siguiente etapa.
 
 El proceso anterior se puede realizar con pipes de la siguiente manera
 
@@ -155,7 +156,6 @@ world_bank_pop %>%
   reframe(media = mean(population), variacion = sd(population), prob = c(0.25, 0.75), qs = quantile(population, c(0.25, 0.75)))
 ```
 
-
 # Tibble
 
 ## Crar un data frame Tibble
@@ -172,4 +172,3 @@ cars %>%as_tibble() %>%
    subset(speed > 20) %>% 
    summary()
 ```
-

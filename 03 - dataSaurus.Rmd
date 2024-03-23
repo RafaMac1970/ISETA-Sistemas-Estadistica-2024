@@ -6,7 +6,7 @@ https://jumpingrivers.github.io/datasauRus/
 
 # Dispersión de datos
 
-Estos datos muestran la importancia de graficar los datos para entender lo que estamos analizando. Todos los gráficos son datos con la misma media y la misma varianza y la misma cantidad de datos.
+Estos datos muestran la importancia de graficar los datos para entender lo que estamos analizando. Todos los gráficos son datos con la misma media, la misma varianza y la misma cantidad de datos.
 
 ```{r}
 library(tidyverse)
@@ -61,19 +61,20 @@ ggplot(dsd,
 ```
 
 ## Pipes y capas (layers) de ggplot2
+
 ```{r fig.height=8, fig.width=8}
 dsd %>% 
   group_by(dataset)  %>% 
     ggplot() + 
-    aes(x = x, y = y, colour=dataset) +
-    geom_boxplot() +
-    stat_boxplot(geom = "errorbar", width = 0.25) +
-    geom_point(alpha = 0.3) + 
-    ylim(0,100) + 
-    facet_wrap(~dataset) +
-    theme_grey()+  # theme_minimal() theme_grey() theme_bw() theme_linedraw() theme_light() theme_dark() theme_minimal() theme_classic() theme_void()
-    theme(legend.position = "none") +
-    xlab("Muestra") + 
-    ylab("Largos (cm)") +
-    theme(aspect.ratio = 1)
+      aes(x = x, y = y, colour=dataset) +
+      geom_boxplot() +
+      stat_boxplot(geom = "errorbar", width = 0.25) +
+      geom_point(alpha = 0.3) + 
+      ylim(0,100) + 
+      facet_wrap(~dataset) +
+      theme_grey()+  # theme_minimal() theme_grey() theme_bw() theme_linedraw() theme_light() theme_dark() theme_minimal() theme_classic() theme_void()
+      theme(legend.position = "none") +
+      xlab("Muestra") + 
+      ylab("Largos (cm)") +
+      theme(aspect.ratio = 1)
 ```

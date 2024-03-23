@@ -18,7 +18,7 @@ diamonds
 diamonds %>% 
   subset(y < 20) %>% subset(z < 10) %>% # para quitar 3 puntos outliers
   ggpairs(columns = c(1,5:10), aes(color = cut, alpha = 0.5))
-#ggpairs(diamonds, aes(color = cut, alpha = 0.5))
+# ggpairs(diamonds, aes(color = cut, alpha = 0.5))
 ```
 
 ```{r}
@@ -54,4 +54,46 @@ gr3 <- ggplot(diamonds, aes(x = carat, y = depth)) +
 #    geom_dotplot() +
   facet_grid(rows = vars(color), cols = vars(clarity))
 gr3
+```
+
+## iris
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+
+
+irisTidy <- tibble(iris)
+nombres <- c("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width")
+irisTidy <- irisTidy %>% pivot_longer(all_of(nombres), names_to = "Variable", values_to = "valor")
+irisTidy
+```
+
+Se puede calcular los índices que se desee a cada grupo de interés
+
+Creamos algunas funciones que realizan cálculos que nos interesen:
+
+```{r}
+q1 <- function(data) {
+  quantile(data, probs = 0.25)[[1]]
+  # también podría ser fivenum(data)[2]
+}
+q2 <- function(data) {
+  quantile(data, probs = 0.5)[[1]]
+  # también podría ser fivenum(data)[3]
+}
+q3 <- function(data) {
+  quantile(data, probs = 0.75)[[1]]
+  # también podría ser fivenum(data)[4]
+}
+```
+
+Creamos un nuevo data set con los índices que nos interese comparar.
+
+```{r}
+indicesIris <- irisTidy %>% group_by(Species,Variable) %>% reframe(n = n(), media = mean(valor), q1 = q1(valor), mediana = median(valor),q2 = q2(valor), sd = sd(valor), varianza = var(valor), cv = sd/media)
+indicesIris
 ```
