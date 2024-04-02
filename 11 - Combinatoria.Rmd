@@ -22,9 +22,13 @@ https://www.youtube.com/watch?v=rAH7RWU4JyM&list=PL2fBB5seGsOUIH732oKHMmqjpMmLeI
 
 ### Libro
 
-Un libro donde el tema está tratado muy bien es:
+Un libro donde el tema está tratado muy bien, breve y sintético es:
 
 Miró, Ricardo (2006). Números combinatorios y probabilidades. 1° Ed. Colección Ciencia Jóven N.º 2, EUDEBA, Bs.As. 159 pgs. "Capítulo 3. Combinatoria".
+
+Para explicaciones más completas y formalmente más desarrolladas (explicado muy claramente y con mayor complejidad):
+
+Miguel R. Wilhelmi (2004). Combinatoria y Probabilidad. Universidad de Granada. España. 275 pgs. https://www.ugr.es/~batanero/pages/ARTICULOS/librowhilhelmi.pdf
 
 ### Factorial
 
