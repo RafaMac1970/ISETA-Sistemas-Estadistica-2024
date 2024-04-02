@@ -1,9 +1,11 @@
 ---
-title: "05 - Built-in datasets"
-output: html_notebook 
+title: "03 - Built-in datasets"
+output: 
+  html_notebook: 
+    toc: true
 ---
 
-#Built in databases
+#Built in databases 
 
 ```{r}
 library(help = "datasets")

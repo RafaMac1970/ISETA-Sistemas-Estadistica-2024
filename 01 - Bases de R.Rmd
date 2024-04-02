@@ -1,6 +1,8 @@
 ---
 title: "01 - Bases de R"
-output: html_notebook
+output: 
+  html_notebook: 
+    toc: true
 ---
 
 R es un entorno que permite realizar una enorme cantidad de análisis estadísticos y matemáticos. El R-base tiene las bases para cualquier análisis y las herramientas para desarrollar los otros paquetes. Además de la programación estadística y matemática, R es un entorno de programación orientado a objetos, aunque las parte estadística responde más bien al paradigma funcional. 
@@ -47,6 +49,8 @@ Asignación          <- ó -> ó = (no recomendado =)
 
 Operación           Símbolo
 -----------------   --------------
+Verdadero           TRUE
+Falso               FALSE
 y                   &
 o                   |
 no                  !
@@ -56,10 +60,46 @@ Menor               <
 Menor igual         <=
 Igual               ==
 Distinto            !=
+-----------------   --------------
 
-## Tipos de datos (Numeric, character , logical, y varios tipos para fechas y tiempos)
+## Literales especiales
 
-### Numeric
+Operación           Símbolo
+-----------------   --------------
+Dato faltante       NA
+Objeto nulo         NULL
+Infinito            Inf
+Not a Number        NaN
+-----------------   --------------
+
+## Estructuras de control
+
+Estructura                      Palabra
+-------------------------       --------------
+Condicional si TRUE             if
+Condicional si FALSE            else
+Repetir una serie de comandos   repeat
+Mientras                        while
+Repetir en un vector            for
+Definir una función             function
+Verificar si un elemento 
+  está en una colección         in
+Saltar una iteración en 
+  un bucle                      next
+Interrumpir un bucle            break
+-------------------------       --------------
+
+## Pipes
+
+Operación               Símbolo
+-----------------       --------------
+Pipe a la derecha       %>%
+-----------------       --------------
+
+# Tipos de datos (Numeric, character , logical, y varios tipos para fechas y tiempos)
+
+## Numeric
+
 
 ```{r}
 a <- 1
@@ -83,7 +123,7 @@ e
 class(e) # "numeric"
 ```
 
-### Character
+## Character
 
 ```{r}
 
@@ -102,7 +142,7 @@ paste(b, g, sep = "-")
 
 ```
 
-### Logical
+## Logical
 
 ```{r}
 a
@@ -119,7 +159,7 @@ b > c | a < d
 ! b > c | a < d
 ```
 
-### Date and Time.
+## Date and Time.
 
 ```{r}
 instante <- now()
@@ -224,7 +264,7 @@ s + t
 
 ```{r}
 # Multiplicación de matrices elemento a elemento
-print("s * t Es el producto términoa término, ambas matrices deben tener las mismas dimensiones")
+paste("s * t Es el producto términoa término, ambas matrices deben tener las mismas dimensiones")
 writeLines("\n")
 s * t
 ```
@@ -233,27 +273,27 @@ s * t
 # Ten en cuenta que se necesitan las dimensiones correctas para la multiplicación de matrices
 w <- matrix(8:13, nrow = 2, ncol = 3)
 writeLines("\n")
-print("w")
+paste("w")
 w
 
 z <- matrix(1:6, nrow = 3, ncol = 2)
 writeLines("\n")
-print("z")
+paste("z")
 z
 
 writeLines("\n")
-print("w %*% z Es el producto matricial, ej del primer valor 8*1 + 10*2 + 12*3 = 64")
+paste("w %*% z Es el producto matricial, ej del primer valor 8*1 + 10*2 + 12*3 = 64")
 writeLines("\n")
 w %*% z
 
 # Producto exterior
 #writeLines("\n")
-#print("w %o% z")
+#paste("w %o% z")
 #w %o% z # (Salida omitida)
 
 # Producto Kronecker
 writeLines("\n")
-print("w %x% z Producto Kronecker")
+paste("w %x% z Producto Kronecker")
 writeLines("\n")
 w %x% z
 ```
@@ -292,7 +332,7 @@ vector3 <- c(16,17,18,19,20,21,22,23,24,25,26,27,28,29,30)
 
 # Usar los vectores creados para armar la matriz.
 unArray3D <- array(c(vector1,vector2,vector3), dim = c(3,3,2))
-print(unArray3D)
+paste(unArray3D)
 ```
 
 ### Acceder a sus elementos
@@ -363,9 +403,9 @@ unDataFrame1[[1]][2]
 unDataFrame1$cadena[3]
 ```
 
-# Vamos a mostrar los procesos detrás de las funciones básicas
+# Funciones
 
-## Primero las funciones
+## Funciones básicas
 
 Trabajemos con los datos vuestros, las medidas de las hojas. 
 
@@ -393,7 +433,7 @@ min(largos)
 #var(largos)
 ```
 
-## Esto es para mostrar el proceso que realizan las funciones anteriores
+### ¿Cómo funcionan las funcionesanteriores?
 
 ```{r}
 suma <- 0 
@@ -453,7 +493,7 @@ largosOrd
 # largos
 ```
 
-## Y aquí la mediana
+### Un ejemplo: la mediana
 
 ```{r}
 if (length(largosOrd) %% 2 == 0) {
@@ -461,6 +501,85 @@ if (length(largosOrd) %% 2 == 0) {
 } else {
   largosOrd[(length(largosOrd) / 2) + 1]
   }
+```
+
+## Escribir nuevas funciones
+
+Para un ejemplo lo hacemos implementando el método anterior, el cálculo de la mediana.
+
+```{r}
+calcularMediana <- function(data) {
+  dataOrdenado <- sort(data)
+  if (length(dataOrdenado) %% 2 == 0) {
+    (largosOrd[length(dataOrdenado) / 2] + dataOrdenado[(length(dataOrdenado) / 2) + 1]) / 2
+    } else {
+      dataOrdenado[(length(dataOrdenado) / 2) + 1]
+      }
+}
+```
+
+También podemos mirar la función que acabamos de crear presionando sobre el nombre de la función en el panel donde están los objetos creados en nuestro Workspace (pestaña "Environment").
+
+Probamos la nueva función y la comparamos con los resultados calculados por median(), que es la función de R-base que hace lo mismo.
+
+```{r}
+calcularMediana(largos)
+median(largos)
+calcularMediana(anchos)
+median(anchos)
+calcularMediana(foliolos)
+median(foliolos)
+calcularMediana(peciolos)
+median(peciolos)
+```
+
+## Conocer las funciones
+
+Para ver cómo está programada una función que exista en nuesto sistema primero tenemos que hallar dónde está:
+
+```{r}
+methods("median")
+```
+
+Sabiendo dónde está, entonces podemos pedirle que la muestre. En este caso se puede ver que hay otros dos paquetes que implementan la misma función, por lo tanto debemos elegir cuál es la que nos interesa. Elijamos la de R-base:
+
+```{r}
+getAnywhere('median.default')
+```
+
+Vemos que el método real es más complejo, eso se debe a que está pensado para trabajar con muchos tipos de colecciones y datos posibles. Además el método tiene varias opciones que podemos conocer con:
+
+```{r}
+help("median")
+```
+
+# Pipes
+
+Es cada vez más común en R trabajar con pipes. La idea general de esta forma de trabajar es imaginar que hacemos un procedimiento que viaja por un caño, De este modo, en un lugar determinado del caño recibimos un objeto que es el resultadode los procesos anteriores, realizamos una tarea y el resultado sigue circulando por el caño.
+
+Esto tiene muchas ventajas:
+-   El código es más corto
+-   El código es más legible
+-   Se crean muchos menos objetos residuales en el entorno de trabajo
+-   Uso más eficiente de la memoria RAM
+
+Mostremos un ejemplo:
+
+```{r}
+unVector <- 5:10
+unVector
+otroVector <- factorial(unVector)
+otroVector
+mediaOtroVector <- mean(otroVector)
+mediaOtroVector
+unaFecha <- as.Date(mediaOtroVector)
+unaFecha
+```
+
+Eso mismo puede realizarse así:
+
+```{r}
+5:10 %>% factorial() %>% mean() %>% as.Date()
 ```
 
 # Grafiquemos

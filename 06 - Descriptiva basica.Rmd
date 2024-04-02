@@ -3,6 +3,8 @@ title: "06 - Descriptiva basica"
 output: html_notebook 
 ---
 
+`Falta ordenar y titular`
+
 ```{r}
 library(tidyverse)
 # library(crosstable)
@@ -77,6 +79,8 @@ Se puede calcular los índices que se desee a cada grupo de interés
 Creamos algunas funciones que realizan cálculos que nos interesen:
 
 ```{r}
+library(plotrix) 
+
 q1 <- function(data) {
   quantile(data, probs = 0.25)[[1]]
   # también podría ser fivenum(data)[2]
@@ -89,11 +93,15 @@ q3 <- function(data) {
   quantile(data, probs = 0.75)[[1]]
   # también podría ser fivenum(data)[4]
 }
+
+ic95 <- function(data) {
+  c(mean(data)-1.96*std.error(data),mean(data)+1.96*std.error(data))
+}
 ```
 
 Creamos un nuevo data set con los índices que nos interese comparar.
 
 ```{r}
-indicesIris <- irisTidy %>% group_by(Species,Variable) %>% reframe(n = n(), media = mean(valor), q1 = q1(valor), mediana = median(valor),q2 = q2(valor), sd = sd(valor), varianza = var(valor), cv = sd/media)
+indicesIris <- irisTidy %>% group_by(Species,Variable) %>% reframe(n = n(), media = mean(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
 indicesIris
 ```

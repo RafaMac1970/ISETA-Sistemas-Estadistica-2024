@@ -1,0 +1,190 @@
+---
+title: "09 - Tablas de contingencia"
+output: 
+  html_notebook: 
+    toc: true
+---
+
+## Variables cualitativas
+
+```{r}
+library(tidyverse)
+library(epitools)
+library(vcd)
+library(ggmosaic)
+library(finalfit)
+```
+
+
+```{r}
+persona <- 1:108
+edad <- sample(c("Joven", "Jovato", "Jovie"), 108, replace = TRUE, prob=c(30, 45, 20))
+edad <- factor(edad, levels = c("Joven", "Jovato", "Jovie"), ordered = TRUE)
+voto <- sample(c("JxC","UxP","LLA"),108, replace = TRUE, prob=c(25,32,30))
+voto <- factor(voto)
+
+datos <- tibble(persona, edad, voto)
+datos
+```
+
+```{r}
+summary(datos)
+```
+
+
+```{r}
+tc1 <- table(datos$edad,datos$voto)
+tc1Margins <- addmargins(tc1)
+tc1Margins
+```
+
+```{r}
+propTc1 <- prop.table(tc1)
+propTc1
+```
+
+
+```{r}
+ggplot(datos) +
+  geom_mosaic(aes(x = product(edad), fill = voto))
+```
+
+```{r}
+ggplot(datos) +
+  aes(x = voto, y = ..count.., fill = edad) +
+  geom_bar()
+```
+
+```{r}
+
+chiTc1 <- chisq.test(tc1)
+print("Observados")
+chiTc1$observed   # observed counts (same as M)
+writeLines("\n")
+print("Frecuencias relativas")
+propTc1
+writeLines("\n")
+print("Esperados")
+chiTc1$expected   # expected counts under the null
+writeLines("\n")
+print("Residuales")
+chiTc1$residuals  # Pearson residuals
+writeLines("\n")
+print("Residuales estandarizados")
+chiTc1$stdres     # standardized residuals
+writeLines("\n")
+print("Valor p")
+writeLines("\n")
+chiTc1$p.value
+writeLines("\n")
+chiTc1
+```
+
+# Odds Ratio
+
+Es importante diferenciar un odd (en español razón) de una probabilidad. Los odds expresan cuántos individuos de un grupo tienen una característica respecto de los que tienen otra característica. La probabilidades en cambio expresan cuántos individuos tienen una característica respecto del total del grupo (incluídos ellos mismos).
+
+
+ACV / Fuma          Si        No        Odds
+--------------   -------    -------    -------
+      Si            a         b         a/b
+      NO            c         d         c/d
+Odds               a/c       b/d
+Probabilidad      a/a+c     b/b+d
+--------------   -------    -------    -------
+Odds Ratio = (a/c) / (b/d)
+
+a/c = es el odds de los "Fumadores". Esto dice cuantos casos de ACV hay respecto de los casos que no tienen ACV dentro de los "Fumadores" Cuanto payor proporción de ACV, mayor es este número. Si el valor es 0.5 significa que hay tantos casos positivos de ACV como negativos.
+
+b/d = es el odds de los "NO Fumadores". Esto es lo mismo pero en el otro grupo, los "NO Fumadores".
+
+El Odds Ratio (OR) es la razón entre los odds anteriores, de los "Fumadores" respecto de los "NO Fumadores". Es decir que dice cuántos más ACV hay entre "Fumadores" que entre "NO Fumadores". Un OR de 1 significa que no hay direfencia de casos de ACV respecto del fumar. Un OR de 1.5 sifnifica que la proporción de personas con ACV entre los "Fumadores" es un 50% mayor que entre los "NO Fumadores".
+
+También se puede calcular los Odds y OR para las filas, la interpretación es algo diferente y la conclusión se expresa direfente, pero la esencia del fenómeno es el mismo.
+
+Si este ejercicio se hace con las probabilidades en lugar de los odds, entonces el equivalente al OR lo llamanos "Riesgo Relativo". El OR puede variar entre 0 e infinito, mientras que el Riesgo Relativo varía entre 0 y 1, siendo 0.5 el mismo riesgo entre los dos grupos.
+
+## Un ejemplo
+
+ACV / Fuma          Si        No        Odds
+--------------   -------    -------    -------
+      Si            7         6         7/6
+      NO           40        90        40/90
+Odds              7/40      6/90
+Probabilidad      7/47      6/96
+--------------   -------    -------    -------
+OR = (7/40) / (6/90) = 2.625
+
+Riesgo Relativo = (7/47) / (6/96) = 2.38
+
+En este caso decimos que la proporción de casos de ACV entre "Fumadores" es más de dos veces y media mayor que entre "No Fumadores".
+
+### El ejemplo calculado con R
+
+Observar que no informa el OR sino el logaritmo natural del OR (en R se escribe log(OR)). Los log(OR) van desde -inf hasta +inf. Como log(1)=0, eso significa que no hay asociación entre las variables, los dos grupos tienen ACV en la misma proporción. Valores negativos corresponden a OR menores a 1 y los positivos a OR mayores a 1. Cuanto mayor el número más fuerte la asociación directamente proporcional, es decir que cuanto más fuma más proporción de ACV. En cambio cuanto más negativo el número más fuerte es la asociación inversamente proporcional, es decir que cuanto más fuma menos proporción de ACV.
+
+```{r}
+tabla_contingencia <- matrix(c(7, 6, 40, 90), nrow = 2, byrow = TRUE)
+rownames(tabla_contingencia) <- c("ACV Si", "ACV No")
+colnames(tabla_contingencia) <- c("Fuma Si", " Fuma No")
+print(tabla_contingencia)
+oddsratio(tabla_contingencia)
+riskratio(tabla_contingencia)
+```
+
+Para corroborar el resultado podemos calcular la inversa de log(x)=y que es e^y=x (en r esta función es exp() ), o podemos calcular el log al OR calculado.
+
+```{r}
+exp(0.9650809)
+log(2.625)
+```
+
+## Volvemos al caso anterior
+
+```{r}
+oddsratio(tc1)
+```
+
+```{r}
+satsTc1 <- assocstats(tc1)
+satsTc1
+```
+
+
+```{r}
+psych::describe(datos)
+```
+
+# Pruebas. En esto estoy experimentando...
+
+```{r}
+# fitTc1 <- datos %>% 
+#   finalfit("voto", "edad", metrics = TRUE,
+#            dependent_label_prefix = "")
+# fitTc1
+```
+
+```{r}
+# fitTc1 <- datos %>% 
+#   summary_factorlist("voto", "edad", p=TRUE, add_col_totals =TRUE, add_row_totals =TRUE)
+# fitTc1
+```
+
+
+```{r}
+# datos %>% or_plot("voto", "edad")
+```
+
+```{r}
+# serie para calcular la constante de Euler e. Cuando n tiende a infinito el resultado tiende a e.
+
+# el valor de e se puede calcular
+# 
+# paste("valor de e =", exp(1))
+# 
+# print("Serie")
+# for (n in 1:100) {
+#   print((1+(1/n))^n)
+# }
+```
+

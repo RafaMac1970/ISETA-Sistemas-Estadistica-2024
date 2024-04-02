@@ -1,6 +1,8 @@
 ---
 title: "07 - Graficando"
-output: html_notebook
+output: 
+  html_notebook: 
+    toc: true
 ---
 
 ```{r}
@@ -73,9 +75,19 @@ data <- iris
 grafico1 <- ggplot(data) +
   aes(x = Petal.Length) +
   geom_histogram()
+```
 
-# Finalmente dibujamos el gráfico creado
-grafico1
+```{r}
+# Igual al anterior pero con un polígono
+grafico2 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_freqpoly()
+
+```
+ 
+```{r}
+# Finalmente dibujamos los gráficos creados
+grafico1 + grafico2
 ```
 
 Otra alternativa es pedirle que pinte las columnas diferenciando entre especies (aquí con el parámetro fill).
@@ -88,9 +100,18 @@ data <- iris
 grafico1 <- ggplot(data) +
   aes(x = Petal.Length, fill = Species, alpha = 0.5) +
   geom_histogram()
+```
 
-# Finalmente dibujamos el gráfico creado
-grafico1
+```{r}
+# Igual al anterior pero con un polígono
+grafico2 <- ggplot(data) +
+  aes(x = Petal.Length, color = Species, alpha = 0.5) +
+  geom_freqpoly()
+```
+
+```{r}
+# Finalmente dibujamos los gráficos creados
+grafico1 + grafico2
 ```
 
 Como en el caso anterior dos especies están solapadas, podemos separar los histogramas en gráficos aparte con la función facet.
@@ -104,9 +125,20 @@ grafico1 <- ggplot(data) +
   aes(x = Petal.Length) +
   geom_histogram() + 
   facet_wrap(vars(Species), dir = "v") # facet repite el gráfico separando los datos de acuerdo a la variable indicada
+```
 
-# Finalmente dibujamos el gráfico creado
-grafico1
+```{r}
+# Igual al anterior pero con un polígono
+grafico2 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_freqpoly() + 
+  facet_wrap(vars(Species), dir = "v")
+```
+
+
+```{r}
+# Finalmente dibujamos los gráficos creados
+grafico1 + grafico2
 ```
 
 ### Gráfico de densidad
@@ -122,6 +154,20 @@ grafico1 <- ggplot(data) +
 
 # Finalmente dibujamos el gráfico creado
 grafico1
+```
+
+```{r}
+# Frecuencia acumulada
+grafico1 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_freqpoly(aes(y=cumsum(..count..)))
+
+# Igual al anterior pero con un densidad
+grafico2 <- ggplot(data) +
+  aes(x = Petal.Length) +
+  geom_density(aes(y=cumsum(..count..)))
+
+grafico1 + grafico2
 ```
 
 ### BoxPlot y Violin
