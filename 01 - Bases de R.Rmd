@@ -5,9 +5,19 @@ output:
     toc: true
 ---
 
-R es un entorno que permite realizar una enorme cantidad de análisis estadísticos y matemáticos. El R-base tiene las bases para cualquier análisis y las herramientas para desarrollar los otros paquetes. Además de la programación estadística y matemática, R es un entorno de programación orientado a objetos, aunque las parte estadística responde más bien al paradigma funcional. 
+Los siguientes libros digitales on line son completas introducciones a R. Cualquiera de ellos lo recomiendo para quienes deseen profundizar en su aprendizaje. También son buenos sitios de consulta para aspectos particulares que le genern dudas.
 
-Por esa razón es muy frecuente que al inicio de cualquier Notebook en RStudio, o script en R-base, se carguen las librerías (paquetes de sofware) necesarias para los análisis que necesitemos realizar. Es importante destacar que para poder usar un paquete tiene que estar instalado en nuestro sistema previamente.
+-   Juan Bosco Mendoza Vega (Actualización permanente). R para principiantes. (On Line) <https://bookdown.org/jboscomendoza/r-principiantes4>
+
+-   Vicente Coll Serrano y Pedro J. Pérez (2018). Curso de Introducción a R. (On Line) <https://www.uv.es/vcoll/curso_r.html>
+
+-   Introducción a estadística con R. (On Line) <https://bookdown.org/matiasandina/R-intro>
+
+# Introducción brevísima a R.
+
+R es un entorno que permite realizar una enorme cantidad de análisis estadísticos y matemáticos. El R-base tiene las bases para cualquier análisis y las herramientas para desarrollar los otros paquetes. Además de la programación estadística y matemática, R es un entorno de programación orientado a objetos, aunque las parte estadística responde más bien al paradigma funcional.
+
+Por esa razón es muy frecuente que al inicio de cualquier Notebook en RStudio, o script en R-base, se carguen las librerías (paquetes de sofware) necesarias para los análisis que realicemos. Es importante destacar que para usar un paquete tiene que estar instalado en nuestro sistema previamente.
 
 Para instalar un paquete podemos hacerlo con el comando install.packages(), sin embargo, como es necesario instalarlo sólo una vez, puede hacerse de la siguiente manera (este comando lo instala si no está previamente instalado en el sistema):
 
@@ -31,75 +41,70 @@ Seguidamente haremos una brevísima síntesis de las herramientas básicas para 
 
 ## Operadores Aritméticos
 
-Operación           Símbolo
------------------   --------------
-Suma                +
-Resta               -
-Multiplicación      *
-División            /
-Resto o módulo      %%
-División entera     %/%
-Potencia            ^ ó **
-Raíz                ^(1/) 
-Raíz cuadrada       sqrt()
------------------   --------------
-Asignación          <- ó -> ó = (no recomendado =)
+| Operación       | Símbolo   |
+|:----------------|:----------|
+| Suma            | \+        |
+| Resta           | \-        |
+| Multiplicación  | \*        |
+| División        | /         |
+| Resto o módulo  | %%        |
+| División entera | %/%       |
+| Potencia        | \^ ó \*\* |
+| Raíz            | \^(1/)    |
+| Raíz cuadrada   | sqrt()    |
+
+Asignación \<- ó -\> ó = (no recomendado =)
 
 ## Operadores lógicos
 
-Operación           Símbolo
------------------   --------------
-Verdadero           TRUE
-Falso               FALSE
-y                   &
-o                   |
-no                  !
-Mayor               >
-Mayor igual         >=
-Menor               <
-Menor igual         <=
-Igual               ==
-Distinto            !=
------------------   --------------
+| Operación   | Símbolo |
+|:------------|:--------|
+| Verdadero   | TRUE    |
+| Falso       | FALSE   |
+| y           | &       |
+| o           | \|      |
+| no          | !       |
+| Mayor       | \>      |
+| Mayor igual | \>=     |
+| Menor       | \<      |
+| Menor igual | \<=     |
+| Igual       | ==      |
+| Distinto    | !=      |
 
 ## Literales especiales
 
-Operación           Símbolo
------------------   --------------
-Dato faltante       NA
-Objeto nulo         NULL
-Infinito            Inf
-Not a Number        NaN
------------------   --------------
+| Operación     | Símbolo |
+|:--------------|:--------|
+| Dato faltante | NA      |
+| Objeto nulo   | NULL    |
+| Infinito      | Inf     |
+| Not a Number  | NaN     |
 
 ## Estructuras de control
 
-Estructura                      Palabra
--------------------------       --------------
-Condicional si TRUE             if
-Condicional si FALSE            else
-Repetir una serie de comandos   repeat
-Mientras                        while
-Repetir en un vector            for
-Definir una función             function
-Verificar si un elemento 
-  está en una colección         in
-Saltar una iteración en 
-  un bucle                      next
-Interrumpir un bucle            break
--------------------------       --------------
+| Estructura                    | Palabra  |
+|:------------------------------|:---------|
+| Condicional si TRUE           | if       |
+| Condicional si FALSE          | else     |
+| Repetir una serie de comandos | repeat   |
+| Mientras                      | while    |
+| Repetir en un vector          | for      |
+| Definir una función           | function |
+| Verificar si un elemento      |          |
+| está en una colección         | in       |
+| Saltar una iteración en       |          |
+| un bucle                      | next     |
+| Interrumpir un bucle          | break    |
 
 ## Pipes
 
-Operación               Símbolo
------------------       --------------
-Pipe a la derecha       %>%
------------------       --------------
+| Operación         | Símbolo |
+|:------------------|:--------|
+| Pipe a la derecha | %\>%    |
 
 # Tipos de datos (Numeric, character , logical, y varios tipos para fechas y tiempos)
 
 ## Numeric
-
 
 ```{r}
 a <- 1
@@ -186,11 +191,11 @@ week(hoy)
 
 # Estructuras de datos
 
-Dimensiones	    Homogeneous	    Heterogeneous
-------------    ------------    --------------
-1d	            Vector          List
-2d	            Matrix	        Data frame / tibble
-nd	            Array
+| Dimensiones | Homogeneous | Heterogeneous       |
+|:------------|:------------|:--------------------|
+| 1d          | Vector      | List                |
+| 2d          | Matrix      | Data frame / tibble |
+| nd          | Array       |                     |
 
 ## Vectores
 
@@ -320,6 +325,7 @@ t[2,] # 9 11 13
 s[,1] # 1 2
 t[,3] # 12 13
 ```
+
 ## Array.
 
 En este caso lo veremos en 3D, pero puede usarse en cualquier dimensión
@@ -392,6 +398,7 @@ unDataFrame1 <- data.frame(
 str(unDataFrame1)
 unDataFrame1
 ```
+
 ### Acceder a sus elementos
 
 ```{r}
@@ -407,7 +414,7 @@ unDataFrame1$cadena[3]
 
 ## Funciones básicas
 
-Trabajemos con los datos vuestros, las medidas de las hojas. 
+Trabajemos con los datos vuestros, las medidas de las hojas.
 
 Largo, ancho, cantidad de folíolos, largo del pecíolo (distancia.)
 
@@ -557,10 +564,14 @@ help("median")
 
 Es cada vez más común en R trabajar con pipes. La idea general de esta forma de trabajar es imaginar que hacemos un procedimiento que viaja por un caño, De este modo, en un lugar determinado del caño recibimos un objeto que es el resultadode los procesos anteriores, realizamos una tarea y el resultado sigue circulando por el caño.
 
-Esto tiene muchas ventajas:
--   El código es más corto
--   El código es más legible
--   Se crean muchos menos objetos residuales en el entorno de trabajo
+Esto tiene muchas ventajas: 
+
+-   El código es más corto 
+
+-   El código es más legible 
+
+-   Se crean muchos menos objetos residuales en el entorno de trabajo 
+
 -   Uso más eficiente de la memoria RAM
 
 Mostremos un ejemplo:

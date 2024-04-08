@@ -14,21 +14,19 @@ Para abordar el problema de la "probabilidad", que está en los fundamentos más
 
 Hay dos videos explicando este tema de manera concisa y completa. Las explicaciones son muy claras y rigurosas, recomiendo enfáticamente que lo miren con detenimiento. Fueron realizados por el profesor Unamuno, que enseña matemáticas en el CBC de la UBA para las carreras de ingeniería. Además hay otros videos con ejercicios resueltos que todos son excelentes.
 
-Conceptos Básicos de Combinatoria
-https://www.youtube.com/watch?v=-HFv7RYOoIU&list=PL43954F1FE4A51311&index=3
+Conceptos Básicos de Combinatoria <https://www.youtube.com/watch?v=-HFv7RYOoIU&list=PL43954F1FE4A51311&index=3>
 
-Combinatoria Variaciones Permutaciones Combinaciones con y sin repeticion
-https://www.youtube.com/watch?v=rAH7RWU4JyM&list=PL2fBB5seGsOUIH732oKHMmqjpMmLeImNY
+Combinatoria Variaciones Permutaciones Combinaciones con y sin repeticion <https://www.youtube.com/watch?v=rAH7RWU4JyM&list=PL2fBB5seGsOUIH732oKHMmqjpMmLeImNY>
 
 ### Libro
 
 Un libro donde el tema está tratado muy bien, breve y sintético es:
 
-Miró, Ricardo (2006). Números combinatorios y probabilidades. 1° Ed. Colección Ciencia Jóven N.º 2, EUDEBA, Bs.As. 159 pgs. "Capítulo 3. Combinatoria".
+Miró, Ricardo (2006). Números combinatorios y probabilidades. 1° Ed. Colección Ciencia Jóven N.º 2, EUDEBA, Bs.As. 159 pgs. "Capítulo 6. Combinatoria: una técnica para ayudar a contar".
 
 Para explicaciones más completas y formalmente más desarrolladas (explicado muy claramente y con mayor complejidad):
 
-Miguel R. Wilhelmi (2004). Combinatoria y Probabilidad. Universidad de Granada. España. 275 pgs. https://www.ugr.es/~batanero/pages/ARTICULOS/librowhilhelmi.pdf
+Miguel R. Wilhelmi (2004). Combinatoria y Probabilidad. Universidad de Granada. España. 275 pgs. <https://www.ugr.es/~batanero/pages/ARTICULOS/librowhilhelmi.pdf>
 
 ### Factorial
 
@@ -37,7 +35,6 @@ En combinatoria se usa mucho una herramienta matemática muy útil que necesita 
 El factorial de un número (n) es el resultado de multiplicar todos los números naturales desde el 1 hasta el número en cuestión (n), y se escribe n!.
 
 Es decir que 4! = 1.2.3.4 = 24
-
 
 ```{r}
 n <- 5
@@ -79,25 +76,25 @@ for (i in 1:172) {
 
 Una buena explicación acerca del factorial también puede encontrarla en el canal de Unamuno.
 
-Los Naturales y el Factorial https://www.youtube.com/watch?v=VJHE7vwsxrg
+Los Naturales y el Factorial <https://www.youtube.com/watch?v=VJHE7vwsxrg>
 
 ## Definiciones. Permutaciones, Variaciones y Combinaciones.
 
 Existen tres tipos básicos de operaciones que podemos realizar sobre un conjunto de elementos: Permutaciones, Variaciones y Combinaciones.
 
-| Orden      | Operacion     | Elementos involucrados               |                      Sin Rep.                       |                   Con Rep                   |
-|:-----------|:-----------|:----------------------|:----------:|:----------:|
+| Orden      | Operacion     | Elementos involucrados               |                      Sin Rep.                       |                  Con Rep.                   |
+|:-------------|:-------------|:------------------|:------------:|:------------:|
 | Importa    | Permutaciones | Todos los elementos del conjunto (m) |                   $$P_{m} = m!$$                    |              $$P'_{m} = m^m$$               |
 | Importa    | Variaciones   | Todos (m) tomados de a k             |           $$V_{m,k} = \frac{m!}{(m-k)!}$$           |             $$V'_{m,k} = m^k$$              |
 | No Importa | Combinaciones | Todos (m) tomados de a k             | $$C_{m,k} = \frac{m!}{(m-k)! . k!} = \binom{m}{k}$$ | $$C'_{m,k} = \frac{(m+k-1)!}{k! . (m-1)!}$$ |
 
-Cada una de estas alternativas puede considerarse con la posibilidad de repetir los elementos del conjunto de referencia (con repetición), o sin ella (Sin repetición).
+Cada una de estas alternativas puede considerarse con la posibilidad de repetir los elementos del conjunto de referencia (Con repetición), o sin ella (Sin repetición).
 
 En la fila de Combinaciones y columna Sin Rep. la notación entre paréntesis con m arriba y k abajo es la forma de escribir un "Número Combinatorio" (volveremos sonre esto más adelante).
 
 Se lee, Permutaciones en un conjunto de m elementos totales; o Variaciones/Combinaciones en un conjunto de m elementos totales, tomados de a k elementos.
 
-### Nótese 
+### Nótese
 
 que si calculamos las Variaciones para m elementos tomados de a m (es decir todos, k = m), lo que en realidad estamos haciendo son Permutaciones:
 
@@ -143,11 +140,11 @@ paste("Calculado con la fórmula: ", factorial(cantidadEstudiantes))
 
 ### Variaciones
 
-Si la cantidad de bancos en el aula es menor a la cantidad de estudiantes, entonces podemos hacer dos operaciones: 
+Si la cantidad de bancos en el aula es menor a la cantidad de estudiantes, entonces podemos hacer dos operaciones:
 
-1.   Primero averiguar cuántos grupos diferentes de estudiantes podemos formar, en este caso realizamos "Combinaciones", porque como no están sentatos en ningún lado, entonces el orden no importa; 
+1.  Primero averiguar cuántos grupos diferentes de estudiantes podemos formar, en este caso realizamos "Combinaciones", porque como no están sentatos en ningún lado, entonces el orden no importa;
 
-2.    y luego podemos averiguar para cada selección de estudiantes de cuántas maneras los podemos sentar en el aula. Es decir que calculamos cuántas Permutaciones podemos realizar en cada Combinación posible. 
+2.  y luego podemos averiguar para cada selección de estudiantes de cuántas maneras los podemos sentar en el aula. Es decir que calculamos cuántas Permutaciones podemos realizar en cada Combinación posible.
 
 Al resultado de ambas operaciones lo llamamos "Variaciones."
 
@@ -178,7 +175,7 @@ paste("La cantidad total de posibilidades es: ", nrow(combinaciones))
 paste("Calculado con la fórmula: ", factorial(cantidadEstudiantes) / (factorial(cantidadEstudiantes - cantidadBancos) * factorial(cantidadBancos)) )
 ```
 
-### Nótese 
+### Nótese
 
 que si hacemos los dos pasos propuestos en el ejemplo de Variaciones, entonces:
 
