@@ -5,7 +5,7 @@ output:
     toc: true
 ---
 
-Los siguientes libros digitales on line son completas introducciones a R. Cualquiera de ellos lo recomiendo para quienes deseen profundizar en su aprendizaje. También son buenos sitios de consulta para aspectos particulares que le genern dudas.
+Los siguientes libros digitales on line son completas introducciones a R. Cualquiera de ellos lo recomiendo para quienes deseen profundizar en su aprendizaje. También son buenos sitios de consulta para aspectos particulares que le generen dudas.
 
 -   Juan Bosco Mendoza Vega (Actualización permanente). R para principiantes. (On Line) <https://bookdown.org/jboscomendoza/r-principiantes4>
 
@@ -62,7 +62,7 @@ Asignación <- ó -> ó = (no recomendado =)
 | Verdadero   | TRUE    |
 | Falso       | FALSE   |
 | y           | &       |
-| o           | |       |
+| o           | \|       |
 | no          | !       |
 | Mayor       | >       |
 | Mayor igual | >=      |
