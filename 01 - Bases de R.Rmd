@@ -43,17 +43,17 @@ Seguidamente haremos una brevísima síntesis de las herramientas básicas para 
 
 | Operación       | Símbolo   |
 |:----------------|:----------|
-| Suma            | \+        |
-| Resta           | \-        |
-| Multiplicación  | \*        |
+| Suma            | +         |
+| Resta           | -         |
+| Multiplicación  | *         |
 | División        | /         |
 | Resto o módulo  | %%        |
 | División entera | %/%       |
-| Potencia        | \^ ó \*\* |
-| Raíz            | \^(1/)    |
+| Potencia        | ^ ó **    |
+| Raíz            | ^(1/)     |
 | Raíz cuadrada   | sqrt()    |
 
-Asignación \<- ó -\> ó = (no recomendado =)
+Asignación <- ó -> ó = (no recomendado =)
 
 ## Operadores lógicos
 
@@ -62,12 +62,12 @@ Asignación \<- ó -\> ó = (no recomendado =)
 | Verdadero   | TRUE    |
 | Falso       | FALSE   |
 | y           | &       |
-| o           | \|      |
+| o           | |       |
 | no          | !       |
-| Mayor       | \>      |
-| Mayor igual | \>=     |
-| Menor       | \<      |
-| Menor igual | \<=     |
+| Mayor       | >       |
+| Mayor igual | >=      |
+| Menor       | <       |
+| Menor igual | <=      |
 | Igual       | ==      |
 | Distinto    | !=      |
 
@@ -100,7 +100,7 @@ Asignación \<- ó -\> ó = (no recomendado =)
 
 | Operación         | Símbolo |
 |:------------------|:--------|
-| Pipe a la derecha | %\>%    |
+| Pipe a la derecha | %>%     |
 
 # Tipos de datos (Numeric, character , logical, y varios tipos para fechas y tiempos)
 
@@ -182,11 +182,13 @@ hoy <- today()
 hoy
 class(hoy)
 
-day(hoy)
-month(hoy)
-year(hoy)
-week(hoy)
-
+paste("wday(hoy):", wday(hoy)) # día de la semana
+paste("mday(hoy):", mday(hoy)) # día del mes
+paste("day(hoy):", day(hoy)) # alias de mday()
+paste("yday(hoy):", yday(hoy)) # día juliano del año
+paste("month(hoy):", month(hoy)) # mes del año
+paste("week(hoy):", week(hoy)) # semana del año
+paste("year(hoy):", year(hoy)) # año
 ```
 
 # Estructuras de datos
@@ -199,12 +201,14 @@ week(hoy)
 
 ## Vectores
 
-Los vectores son conjuntos ordenados de objetos de la misma clase (o type). Se instancian con c(). Pueden contenercualquier tipo de objetos mientras sean del mismo tipo y los fuerza al mismo tipo por defecto. Las operaciones básicas funcionan elemento a elemento.
+Los vectores son conjuntos ordenados de objetos de la misma clase (o type). Se instancian con c(). Pueden contener cualquier tipo de objetos mientras sean del mismo tipo y los fuerza al mismo tipo por defecto. Las operaciones básicas funcionan elemento a elemento.
 
 ```{r}
 x <- c(1, 7, 3)
 y <- c(9, 4, 5.2)
 x
+class(x)
+typeof(x)
 y
 
 x + y   # 10 11  8
@@ -252,10 +256,14 @@ s
 t
 ```
 
+Se puede construir una matriz a partir de vectores. Cada vector puede ser una columna
+
 ```{r}
 matr <- cbind(x,y)
 matr
 ```
+
+o una fila
 
 ```{r}
 matr2 <- rbind(x,y)
@@ -264,19 +272,21 @@ matr2
 
 ```{r}
 # Suma de matrices elemento a elemento
+paste("s + t Es la suma término a término, ambas matrices deben tener las mismas dimensiones")
+writeLines("\n")
 s + t
 ```
 
 ```{r}
 # Multiplicación de matrices elemento a elemento
-paste("s * t Es el producto términoa término, ambas matrices deben tener las mismas dimensiones")
+paste("s * t Es el producto término a término, ambas matrices deben tener las mismas dimensiones")
 writeLines("\n")
 s * t
 ```
 
 ```{r}
-# Ten en cuenta que se necesitan las dimensiones correctas para la multiplicación de matrices
-w <- matrix(8:13, nrow = 2, ncol = 3)
+# Tenga en cuenta que se necesitan las dimensiones correctas para la multiplicación de matrices
+w <- matrix(12:17, nrow = 2, ncol = 3)
 writeLines("\n")
 paste("w")
 w
@@ -338,7 +348,10 @@ vector3 <- c(16,17,18,19,20,21,22,23,24,25,26,27,28,29,30)
 
 # Usar los vectores creados para armar la matriz.
 unArray3D <- array(c(vector1,vector2,vector3), dim = c(3,3,2))
-paste(unArray3D)
+unArray3D
+
+class(unArray3D)
+typeof(unArray3D)
 ```
 
 ### Acceder a sus elementos
@@ -440,7 +453,7 @@ min(largos)
 #var(largos)
 ```
 
-### ¿Cómo funcionan las funcionesanteriores?
+### ¿Cómo funcionan las funciones anteriores?
 
 ```{r}
 suma <- 0 
@@ -484,8 +497,10 @@ mini
 ### Cómo se ordena?
 
 ```{r}
+# La función sort ordena los elementos de un vector
 sort(largos)
 
+# y lo hace de la siguiente manera
 largosOrd <- largos
 for (i in 2:length(largosOrd)) {
   v <- largosOrd[i]
@@ -564,13 +579,13 @@ help("median")
 
 Es cada vez más común en R trabajar con pipes. La idea general de esta forma de trabajar es imaginar que hacemos un procedimiento que viaja por un caño, De este modo, en un lugar determinado del caño recibimos un objeto que es el resultadode los procesos anteriores, realizamos una tarea y el resultado sigue circulando por el caño.
 
-Esto tiene muchas ventajas: 
+Esto tiene muchas ventajas:
 
--   El código es más corto 
+-   El código es más corto
 
--   El código es más legible 
+-   El código es más legible
 
--   Se crean muchos menos objetos residuales en el entorno de trabajo 
+-   Se crean muchos menos objetos residuales en el entorno de trabajo
 
 -   Uso más eficiente de la memoria RAM
 

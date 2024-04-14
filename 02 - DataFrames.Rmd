@@ -134,7 +134,7 @@ world_bank_pop %>%
 
 # Tibble
 
-## Crar un data frame Tibble
+## Crear un data frame Tibble
 
 Existen muchísimas formas de crear un tibble, aquí presentaremos las más ussadas.
 
@@ -181,7 +181,6 @@ texto <- as.character(c("e", "f", "g", "h"))
 unTibble2 <- tibble(enteros, unFactor, numeros, texto)
 unTibble2
 ```
-
 
 ### 4. Crear una matriz y luego convertirla en tibble.
 
@@ -230,10 +229,11 @@ Hay una enorme cantidad de tipos posibles para cada columna, aquí los más usad
 
 ```{r}
 unTibble5 <- tibble("Entero"=integer(),
-                           "Decimal"=double(),
-                           "Palabra"=character(),
-                           "Factor"=factor(),
-                           "Fecha"=date())
+                    "Decimal"=double(),
+                    "Palabra"=character(),
+                    "Factor"=factor(),
+                    "Fecha"=date()
+                    )
 ```
 
 ### 7- Crear un tibble compuesto de otros tibbles.
@@ -323,10 +323,10 @@ dbWriteTable(conn, "diamonds_data", diamonds)
 Finalmente leer de la base de datos con un query SQL
 
 ```{r}
-dbGetQuery(conn, "SELECT * FROM diamonds_data LIMIT 10")
+tibble(dbGetQuery(conn, "SELECT * FROM diamonds_data LIMIT 10"))
 ```
 
-O cargar toda la base de datos. Esto hay que hacerlo con cuidado cuando la base es grande y dependiendo de la RAM de la computadora usada.
+O cargar toda la base de datos. Esto hay que hacerlo con cuidado cuando la base es grande y dependiendo de la RAM de la computadora usada. Nótese que la función dbGetQuery() me devuelve un data frame (df), para convertirmo a tibble debo usar la función tibble() como en el caso anterior.
 
 ```{r}
 # Leer de la base de datos con un query SQL

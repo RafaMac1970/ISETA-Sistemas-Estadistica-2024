@@ -5,7 +5,7 @@ output:
     toc: true
 ---
 
-#Built in databases 
+# Built in databases 
 
 ```{r}
 library(help = "datasets")

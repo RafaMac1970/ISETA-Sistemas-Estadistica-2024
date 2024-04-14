@@ -32,7 +32,7 @@ $$
 ### Cálculo con un vector
 
 ```{r}
-muestraA <- c(70, 74, 78, 66, 73, 71, 71, 70, 64, 66, 72, 68, 77, 69, 73, 88, 62, 71, 75, 76)
+muestraA <- c(70, 74, 78, 66, 73, 71, 71, 70, 64, 66, 72, 68, 77, 69, 73, 88, 62, 73, 75, 76)
 
 muestraA
 sum(muestraA)
@@ -43,14 +43,26 @@ sum(muestraA) / length(muestraA)
 ### Usando las funciones existentes
 
 ```{r}
+# Escribir una función que encuentre la moda. Moda es el valor que aparece más cantidad de veces.
+
+moda <- function(unVector){
+  frecuencias <- table(unVector)
+  names(frecuencias[frecuencias == max(frecuencias)])
+}
+```
+
+
+```{r}
+sort(muestraA)
+
 # Media
 mean(muestraA)
 
 # Mediana. Es el valor que divide los datos en dos (coincide con el quantil 0.5)
 median(muestraA)
 
-# Escribir una función que encuentre la moda. Moda es el valor que aparece más cantidad de veces.
-#moda(muestraA)
+# Moda es el valor que aparece más cantidad de veces.
+moda(muestraA)
 
 ```
 
