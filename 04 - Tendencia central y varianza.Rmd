@@ -44,7 +44,6 @@ sum(muestraA) / length(muestraA)
 
 ```{r}
 # Escribir una función que encuentre la moda. Moda es el valor que aparece más cantidad de veces.
-
 moda <- function(unVector){
   frecuencias <- table(unVector)
   names(frecuencias[frecuencias == max(frecuencias)])
