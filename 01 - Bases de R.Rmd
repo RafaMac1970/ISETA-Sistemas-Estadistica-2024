@@ -62,7 +62,7 @@ Asignación <- ó -> ó = (no recomendado =)
 | Verdadero   | TRUE    |
 | Falso       | FALSE   |
 | y           | &       |
-| o           | |       |
+| o           | \|       |
 | no          | !       |
 | Mayor       | >       |
 | Mayor igual | >=      |
