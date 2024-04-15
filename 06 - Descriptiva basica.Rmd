@@ -1,107 +1,164 @@
 ---
 title: "06 - Descriptiva basica"
-output: html_notebook 
+output: 
+  html_notebook: 
+    toc: true
 ---
-
-`Falta ordenar y titular`
 
 ```{r}
 library(tidyverse)
-# library(crosstable)
 library(ggplot2)
+library(ggExtra)
+library(patchwork)
 library(GGally)
+# Cargamos las funciones que hemos ido creando:
+source("funciones/funcionesPersonales.R")
+```
+
+# diamonds
+
+## Mirar la estructura y extensión
+
+```{r}
+help(diamonds)
+diamonds
 ```
 
 ```{r}
-diamonds
+summary(diamonds)
 ```
+
+## Transformar a tidy
+
+```{r}
+nombres <- c("carat","depth","table","price","x","y","z")
+diamondsTidy <- tibble(diamonds) %>% pivot_longer(all_of(nombres), names_to = "Variable", values_to = "valor")
+diamondsTidy
+```
+
+## Calcular índices por grupo
+
+Se puede calcular los índices que se desee a cada grupo de interés. Creamos un nuevo data set con los índices que nos interese comparar.
+
+```{r}
+indicesDiamonds <- diamondsTidy %>% group_by(cut,color,clarity,Variable) %>% reframe(n = n(), media = mean(valor), moda = moda(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
+indicesDiamonds
+```
+
+## Matriz gráfica de correlación
 
 ```{r fig.height=10, fig.width=12, message=FALSE, warning=FALSE}
 diamonds %>% 
   subset(y < 20) %>% subset(z < 10) %>% # para quitar 3 puntos outliers
-  ggpairs(columns = c(1,5:10), aes(color = cut, alpha = 0.5))
-# ggpairs(diamonds, aes(color = cut, alpha = 0.5))
+   ggpairs(aes(color = cut, alpha = 0.5))
+ # ggpairs(columns = c(1,5:10), aes(color = cut, alpha = 0.5))
+ # ggpairs(columns = c(2:4), aes(color = cut, alpha = 0.5))
 ```
 
-```{r}
-gr1 <- ggplot(diamonds, aes(depth)) + 
-  geom_histogram()
+## Histograma y Densidad para una variable (Ej. "depth")
+
+```{r message=FALSE, warning=FALSE}
+ gr1 <- diamondsTidy %>% filter(Variable == "depth") %>% ggplot(aes(valor, after_stat(density))) + 
+   geom_histogram() +
+   geom_density(aes(valor, color = cut)) +
+   facet_grid(vars(color), vars(clarity))
 gr1
 ```
 
 ```{r}
 unaTablita <- table(cut(diamonds$depth, breaks = c(54,56,58,60,62,64,66,68,70)))
-prop.table(unaTablita)
 unaTablita
-```
-```{r}
-# CrossTable(diamonds$color, diamonds$cut, prop.t=TRUE, prop.r=TRUE, prop.c=TRUE)
+prop.table(unaTablita)
 ```
 
-  
-```{r}
-summary(diamonds)
-```
+## Box Plot (seguipos con ej. "depth")
 
 ```{r fig.height=10, fig.width=12}
-gr2 <- ggplot(diamonds, aes(x = color, y = carat)) + 
+gr2 <- ggplot(diamonds, aes(x = cut, y = depth)) + 
   geom_boxplot() +
-  facet_grid(rows = vars(cut), cols = vars(clarity))
+  facet_grid(rows = vars(color), cols = vars(clarity))
 gr2
 ```
 
-```{r fig.height=10, fig.width=12}
-gr3 <- ggplot(diamonds, aes(x = carat, y = depth)) + 
+## Diagramas de Violín con Box Plot superpuesto
+
+```{r fig.height=10, fig.width=14, message=FALSE, warning=FALSE}
+gr3 <- ggplot(diamonds, aes(x = cut, y = depth)) + 
   geom_violin() +
-#    geom_dotplot() +
+  geom_boxplot(alpha = 0.3) +
+#  geom_jitter(alpha = 0.1) +
   facet_grid(rows = vars(color), cols = vars(clarity))
 gr3
 ```
 
-## iris
+# iris
+
+### *Iris setosa*
+
+[![Iris setosa](https://www.plantpref.co.uk/user/products/large/irisseto2.jpg){width="300"}](https://search.brave.com/images?q=iris+setosa&source=web&img=104)
+
+### *Iris versicolor*
+
+[![Iris versicolor](https://www.jardin2m.com/Content/Images/Vegetaux/29IRVERS.jpg){width="300"}](https://duckduckgo.com/?q=Iris+versicolor&t=brave&iax=images&ia=images)
+
+### *Iris virginica*
+
+[![Iris virginica](https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Iris-virginica--Justin-Meissen--CC-BY-SA.jpg){width="300"}](https://duckduckgo.com/?q=Iris+virginica&t=brave&iax=images&ia=images)
+
+## Mirar la estructura y extensión
 
 ```{r}
-library(tidyverse)
-library(ggplot2)
+help(iris)
+iris
 ```
 
 ```{r}
+summary(iris)
+```
 
+## Transformar a tidy
 
-irisTidy <- tibble(iris)
+```{r}
 nombres <- c("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width")
-irisTidy <- irisTidy %>% pivot_longer(all_of(nombres), names_to = "Variable", values_to = "valor")
+irisTidy <- tibble(iris) %>% pivot_longer(all_of(nombres), names_to = "Variable", values_to = "valor")
 irisTidy
 ```
 
-Se puede calcular los índices que se desee a cada grupo de interés
-
-Creamos algunas funciones que realizan cálculos que nos interesen:
+## Calcular índices por grupo
 
 ```{r}
-library(plotrix) 
-
-q1 <- function(data) {
-  quantile(data, probs = 0.25)[[1]]
-  # también podría ser fivenum(data)[2]
-}
-q2 <- function(data) {
-  quantile(data, probs = 0.5)[[1]]
-  # también podría ser fivenum(data)[3]
-}
-q3 <- function(data) {
-  quantile(data, probs = 0.75)[[1]]
-  # también podría ser fivenum(data)[4]
-}
-
-ic95 <- function(data) {
-  c(mean(data)-1.96*std.error(data),mean(data)+1.96*std.error(data))
-}
+indicesIris <- irisTidy %>% group_by(Species,Variable) %>% reframe(n = n(), media = mean(valor), moda = moda(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
+indicesIris
 ```
 
-Creamos un nuevo data set con los índices que nos interese comparar.
+## Matriz gráfica de correlación
+
+```{r fig.height=10, fig.width=12, message=FALSE, warning=FALSE}
+iris %>% 
+   ggpairs(aes(color = Species, alpha = 0.5))
+ # ggpairs(columns = c(1,5:10), aes(color = cut, alpha = 0.5))
+ # ggpairs(columns = c(2:4), aes(color = cut, alpha = 0.5))
+```
+
+## Diagramas de dispersión, o gráficos de puntos. Con gráficos marginales
 
 ```{r}
-indicesIris <- irisTidy %>% group_by(Species,Variable) %>% reframe(n = n(), media = mean(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
-indicesIris
+p <- ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species, size = Sepal.Length, alpha = 0.3)) +
+      geom_point() +
+      theme(legend.position="none")
+ 
+p1 <- ggMarginal(p, type="histogram")
+
+p2 <- ggMarginal(p, type="histogram", fill = "slateblue", xparams = list(  bins=10))
+ 
+p3 <- ggMarginal(p, type="density")
+ 
+p4 <- ggMarginal(p, type="boxplot")
+
+```
+
+```{r}
+library("cowplot")
+# Graficar en grilla
+plot_grid(p1,p2,p3,p4, labels = "AUTO")
 ```
