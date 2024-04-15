@@ -390,6 +390,14 @@ h <- list(12, s, t, w, z, now(), y, TRUE)
 h
 class(h)
 ```
+```{r}
+t <- s
+
+s
+t
+h
+```
+
 
 En una lista los objetos pueden nombrarse
 

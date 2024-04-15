@@ -14,21 +14,24 @@ Miguel R. Wilhelmi (2004). Combinatoria y Probabilidad. Universidad de Granada. 
 
 ### Nivel Básico
 
-Juan Bosco Mendoza Vega (Actualización permanente). R para principiantes. (On Line) <https://bookdown.org/jboscomendoza/r-principiantes4>
+Juan Bosco Mendoza Vega (Actualización permanente). R para principiantes. (on line) <https://bookdown.org/jboscomendoza/r-principiantes4>
 
-Vicente Coll Serrano y Pedro J. Pérez (2018). Curso de Introducción a R. (On Line) <https://www.uv.es/vcoll/curso_r.html>
+Vicente Coll Serrano y Pedro J. Pérez (2018). Curso de Introducción a R. (on line) <https://www.uv.es/vcoll/curso_r.html>
 
-Introducción a estadística con R. (On Line) <https://bookdown.org/matiasandina/R-intro>
+Introducción a estadística con R. (on line) <https://bookdown.org/matiasandina/R-intro>
 
 ### Nivel Medio
 
-Vargas, Liseth Estefanía y Eloína Mesa Fuquen (2021). Introducción al análisis de datos con RStudio. Cenipalma, Colombia. (.pdf On Line) <https://repositorio.fedepalma.org/bitstream/handle/123456789/141281/Manual%20REstudio%20IMw.pdf?sequence=6&isAllowed=y>
+Vargas, Liseth Estefanía y Eloína Mesa Fuquen (2021). Introducción al análisis de datos con RStudio. Cenipalma, Colombia. (.pdf on line) <https://repositorio.fedepalma.org/bitstream/handle/123456789/141281/Manual%20REstudio%20IMw.pdf?sequence=6&isAllowed=y>
+
+Daniel Paredes Inilupu (2020). Data Science con R. Análisis de Datos y algoritmos de predicción con R. (on line) <https://bookdown.org/dparedesi/data-science-con-r/>
+
 
 ### Nivel Avanzado
 
-Este es un recurso excelente y muy completo, pero más avanzado, recomiendo empezar por los anteriores, o iniciar con este pero con calma. Hernández, Freddy y Olga Usuga (2023). Manual de R. (On Line) <https://fhernanb.github.io/Manual-de-R>
+Este es un recurso excelente y muy completo, pero más avanzado, recomiendo empezar por los anteriores, o iniciar con este pero con calma. Hernández, Freddy y Olga Usuga (2023). Manual de R. (on line) <https://fhernanb.github.io/Manual-de-R>
 
-Para valientes Wickham, Hadley & Garret Grolemund (2023). R for Data Science. (2° edition) (On Line) <https://r4ds.hadley.nz/>
+Para valientes Wickham, Hadley & Garret Grolemund (2023). R for Data Science. (2° edition) (on line) <https://r4ds.hadley.nz/>
 
 Otro para valientes Irizarry, Rafael A. (2022, última actualización). Introduction to Data Science. Data Analysis and Prediction Algorithms with R. (On Line) <http://rafalab.dfci.harvard.edu/dsbook>
 
