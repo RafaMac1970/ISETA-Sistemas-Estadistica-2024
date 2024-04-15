@@ -1,5 +1,5 @@
 ---
-title: "06 - Descriptiva basica"
+title: "07 - Descriptiva basica"
 output: 
   html_notebook: 
     toc: true

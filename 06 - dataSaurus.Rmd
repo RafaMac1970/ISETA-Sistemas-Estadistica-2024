@@ -1,9 +1,10 @@
 ---
-title: "05 - DataSaurus"
+title: "06 - DataSaurus"
 output: 
   html_notebook: 
     toc: true
 ---
+
 https://jumpingrivers.github.io/datasauRus/
 
 # Dispersión de datos

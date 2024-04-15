@@ -7,18 +7,20 @@ output:
 
 # Built in databases 
 
+R cuenta con una larga serie de bases de datos que se usan en diferentes contextos y paquetes para ejemplificar el funcionamineto. Lo bueno de estas bases de datos es que son datos reales y que han sido analizados por muchísima gente. Adedmás algunas de ellas son muy conocidas. Vamos a explorar algunas de ellas y cómo conocerlas así las tenemos disponibles para todo el curso.
+
 ```{r}
 library(help = "datasets")
 data(package = .packages(all.available = TRUE))
 ```
 
-Aquí les nombro algunos datasets interesantes:
+Aquí les nombro algunos datasets interesantes (los nombres son "case sensitives"):
 -   iris
 -   diamonds
 -   mtcar
 -   airquality
 -   mpg
--   co2 (no es lomismo que CO2 !! )
+-   co2 (no es lo mismo que CO2 !! )
 -   who
 -   world_bank_pop
 -   gapminder
@@ -51,6 +53,10 @@ https://www.jardin2m.com/Content/Images/Vegetaux/29IRVERS.jpg
 Iris virginica
 https://imgs.search.brave.com/RL8PDV1Fb6X3z_brQvsexvB4IUzLJBnrZeAWq0K_b48/rs:fit:540:720:1/g:ce/aHR0cDovL3d3dy5t/aW5uZXNvdGF3aWxk/Zmxvd2Vycy5pbmZv/L3VkYXRhL3I5bmRw/MjNxL3BkL2lyaXMt/dmlyZ2luaWNhLTgu/anBn
 
+```{r}
+hist(iris$Sepal.Length)
+```
+
 ## Gapminder
 
 https://www.gapminder.org/
@@ -71,7 +77,7 @@ gapminder_unfiltered %>%
 ```
 
 ```{r}
-vector_paises = c("Argentina", "Peru", "Bolivia")
+vector_paises <- c("Argentina", "Peru", "Bolivia")
 gapminder_unfiltered %>% 
   filter(country  %in%  vector_paises) %>% 
   select(country, year, lifeExp, gdpPercap)

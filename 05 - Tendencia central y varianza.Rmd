@@ -1,5 +1,5 @@
 ---
-title: "04 - Tendencia central y varianza"
+title: "05 - Tendencia central y varianza"
 output: 
   html_notebook: 
     toc: true

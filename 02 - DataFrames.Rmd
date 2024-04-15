@@ -245,7 +245,39 @@ tibbleCompuesto <- tibble(unTibble1, unTibble2, unTibble3)
 tibbleCompuesto
 ```
 
-# Acceder a la información de un tibble
+## Cambiar el tipo de datos de una columna
+
+Aveces es necesario cambiar el tipo de datos una vez que la base de datos está cargada. Por ejemplo, en la base antes creada unTibble2, la columna unFactor es de tipo caracter. 
+
+```{r}
+unTibble2
+```
+
+Si queremos cambiarla a factor podemos hacerlo de la siguiente manera.
+
+```{r}
+unTibble2$unFactor <- factor(unTibble2$unFactor)
+unTibble2
+```
+
+También puede cambiarse otros tipos de datos, siempre que sea compatible.
+
+```{r}
+unTibble2$enteros <- as.character(unTibble2$enteros)
+unTibble2
+```
+
+```{r}
+unTibble2$enteros <- as.double(unTibble2$enteros)
+unTibble2
+```
+
+```{r}
+unTibble2$enteros <- as.integer(unTibble2$enteros)
+unTibble2
+```
+
+## Acceder a la información de un tibble
 
 Hay una diferencia importante con un dataframe respecto del acceso a información. Aquí va una comparación de algunos casos de uso común.
 
