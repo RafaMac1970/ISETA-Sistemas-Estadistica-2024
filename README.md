@@ -12,6 +12,8 @@ Miró, Ricardo (2006). Números combinatorios y probabilidades. 1° Ed. Colecci�
 
 Miguel R. Wilhelmi (2004). Combinatoria y Probabilidad. Universidad de Granada. España. 275 pgs. <https://www.ugr.es/~batanero/pages/ARTICULOS/librowhilhelmi.pdf>
 
+Levin, Richard, David Rubin (2004). Estadística para administración y economía. (7ma ed.) Pearson Educación de México. México, 952pgs. <https://www.academia.edu/9701898/Estad%C3%ADstica_para_Administraci%C3%B3n_y_Econom%C3%ADa_7ma_Edici%C3%B3n_Richard_I_Levin_and_David_S_Rubin>
+
 ### Nivel Básico
 
 Juan Bosco Mendoza Vega (Actualización permanente). R para principiantes. (on line) <https://bookdown.org/jboscomendoza/r-principiantes4>
