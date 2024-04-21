@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r}
-library(tidyverse) 
+library(tidyverse)
 ```
 
 Hay muchos frameworks de estructuras de datos en R. Voy a describir muy someramente el más básico y luego con más detalle el de Tidyverse, y en particular la estructura Tidy.
@@ -86,7 +86,20 @@ unDataFrame4[2,]
 unDataFrame4[2,2]
 ```
 
+### Acceder a una celda por nombre de columna (variable)
+
+```{r}
+unDataFrame4[2,]$numero
+unDataFrame4$numero[2]
+```
+
 # Tidyverse y estructuras Tidy (paquete tidyr).
+
+Cargar la librería no es necesario si ya se cargó tidyverse.
+
+```{r}
+library(tidyr)
+```
 
 <https://www.tidyverse.org> Cheatsheet <https://github.com/rstudio/cheatsheets/blob/master/tidyr.pdf>
 
@@ -134,19 +147,20 @@ world_bank_pop %>%
 
 # Tibble
 
+Los "tibble" son los "data.frame" de "tidyverse". Los tibbles pueden tener una estructura que no sea tidy, pero toda la lógica de trabajo es con tidy, de modo que no hacerlo hace muchas tareas más engorrosas.
+
 ## Crear un data frame Tibble
 
 Existen muchísimas formas de crear un tibble, aquí presentaremos las más ussadas.
 
 ### 1- Desde un Data Frame
 
-Se puede transformar cualquier Data Frame (como los creados anteriormente) en un tibble. No es una buena práctica acostumbrarse a esto porque se pierden algunas de las ventajas como por ejemplo que las columnas de tibble pueden ser cualquier string.
+Se puede transformar cualquier Data Frame (como los creados anteriormente) en un tibble. No es una buena práctica acostumbrarse a esto porque se pierden algunas de las ventajas como por ejemplo que las columnas de tibble pueden ser cualquier string. En este ejemplo usamos dataframeS que ya existe en R, que se llaman iris y cars. iris y cars son lo que llamamos "built-in dataset", más detalles en "03  - Built-in datasets.Rmd".
 
 ```{r}
 iris %>% as_tibble() %>% 
   subset(Species == 'setosa') %>% 
   summary()
-
 ```
 
 ```{r}
@@ -193,7 +207,7 @@ unTibble3
 
 ### 5. Crear el tibble leyendo los datos de un archivo .csv
 
-Nótese que es muy similar al caso de la creación de un data frame. La diferencia es sutil, antes lo hacíamos con "read.csv" y ahora "read_csv" usamos el guión bajo enlugar del punto.
+Nótese que es muy similar al caso de la creación de un data frame. La diferencia es sutil, antes lo hacíamos con "read.csv" y ahora "read_csv" usamos el guión bajo en lugar del punto.
 
 ```{r}
 #library(readr)
@@ -279,7 +293,7 @@ unTibble2
 
 ## Acceder a la información de un tibble
 
-Hay una diferencia importante con un dataframe respecto del acceso a información. Aquí va una comparación de algunos casos de uso común.
+Hay una diferencia importante con un dataframe respecto del acceso a información. Aquí va una comparación de algunos casos de uso común. La tabla muestra la clase del objeto que devuelve cada comando.
 
 Comando                   data Frame                tibble
 --------------------    --------------------    --------------------
