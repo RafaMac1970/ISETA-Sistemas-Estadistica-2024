@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r}
-library(tidyverse) 
+library(tidyverse)
 ```
 
 Hay muchos frameworks de estructuras de datos en R. Voy a describir muy someramente el más básico y luego con más detalle el de Tidyverse, y en particular la estructura Tidy.
@@ -86,7 +86,20 @@ unDataFrame4[2,]
 unDataFrame4[2,2]
 ```
 
+### Acceder a una celda por nombre de columna (variable)
+
+```{r}
+unDataFrame4[2,]$numero
+unDataFrame4$numero[2]
+```
+
 # Tidyverse y estructuras Tidy (paquete tidyr).
+
+Cargar la librería no es necesario si ya se cargó tidyverse.
+
+```{r}
+library(tidyr)
+```
 
 <https://www.tidyverse.org> Cheatsheet <https://github.com/rstudio/cheatsheets/blob/master/tidyr.pdf>
 
@@ -95,6 +108,8 @@ unDataFrame4[2,2]
 3.  Cada celda es un valor único.
 
 El siguiente es un ejemplo que no es Tidy, porque cada fila no es sólo una medición de la población, sino una para cada año. Para transformarla es necesario agregar dos columnas, una para el año y otra para la población y reordenar las columnas por año dentro de esas dos columnas.
+
+En este ejemplo usamos un dataframe que ya existe en R, que se llama world_bank_pop. world_bank_pop es lo que llamamos "built-in dataset", más detalles en "03  - Built-in datasets.Rmd".
 
 ```{r}
 world_bank_pop
@@ -123,16 +138,19 @@ world_bank_pop %>%
 El inconveniente de usar pipes es que si quiero trabajar sobre los datos del gráfico anterior debo repetir el proceso. Siempre una alternativa es darle persistencia al proceso anterior antes de hacer el gráfico, de esa manera se lo puede volver a usar.
 
 ```{r}
-world_bank_pop %>% 
+wbp_ARG_ROU_CHE <- world_bank_pop %>% 
   pivot_longer(anios, names_to = "year", values_to = "population")  %>% 
   type_convert(col_types = cols( year = col_double() ) ) %>%
   subset(country == 'ARG' | country == 'ROU' | country == 'CHE') %>% 
   subset(indicator == 'SP.POP.TOTL') %>% 
   group_by(country)  %>% 
   reframe(media = mean(population), variacion = sd(population), prob = c(0.25, 0.75), qs = quantile(population, c(0.25, 0.75)))
+wbp_ARG_ROU_CHE
 ```
 
 # Tibble
+
+Los "tibble" son los "data.frame" de "tidyverse". Los tibbles pueden tener una estructura que no sea tidy, pero toda la lógica de trabajo es con tidy, de modo que no hacerlo hace muchas tareas más engorrosas.
 
 ## Crear un data frame Tibble
 
@@ -140,19 +158,20 @@ Existen muchísimas formas de crear un tibble, aquí presentaremos las más ussa
 
 ### 1- Desde un Data Frame
 
-Se puede transformar cualquier Data Frame (como los creados anteriormente) en un tibble. No es una buena práctica acostumbrarse a esto porque se pierden algunas de las ventajas como por ejemplo que las columnas de tibble pueden ser cualquier string.
+Se puede transformar cualquier Data Frame (como los creados anteriormente) en un tibble. No es una buena práctica acostumbrarse a esto porque se pierden algunas de las ventajas como por ejemplo que las columnas de tibble pueden ser cualquier string. 
+
+En este ejemplo usamos dataframes que ya existe en R, que se llaman iris y cars. iris y cars son lo que llamamos "built-in dataset", más detalles en "03  - Built-in datasets.Rmd".
 
 ```{r}
-iris %>% as_tibble() %>% 
-  subset(Species == 'setosa') %>% 
-  summary()
-
+irisTibble <- iris %>% as_tibble() %>% 
+  subset(Species == 'setosa')
+irisTibble
 ```
 
 ```{r}
-cars %>%as_tibble() %>%
-   subset(speed > 20) %>% 
-   summary()
+carsTibble <- cars %>%as_tibble() %>%
+   subset(speed > 20)
+carsTibble
 ```
 
 ### 2- Crear tibble con los datos en un comando.
@@ -193,7 +212,7 @@ unTibble3
 
 ### 5. Crear el tibble leyendo los datos de un archivo .csv
 
-Nótese que es muy similar al caso de la creación de un data frame. La diferencia es sutil, antes lo hacíamos con "read.csv" y ahora "read_csv" usamos el guión bajo enlugar del punto.
+Nótese que es muy similar al caso de la creación de un data frame. La diferencia es sutil, antes lo hacíamos con "read.csv" y ahora "read_csv" usamos el guión bajo en lugar del punto.
 
 ```{r}
 #library(readr)
@@ -279,7 +298,7 @@ unTibble2
 
 ## Acceder a la información de un tibble
 
-Hay una diferencia importante con un dataframe respecto del acceso a información. Aquí va una comparación de algunos casos de uso común.
+Hay una diferencia importante con un dataframe respecto del acceso a información. Aquí va una comparación de algunos casos de uso común. La tabla muestra la clase del objeto que devuelve cada comando.
 
 Comando                   data Frame                tibble
 --------------------    --------------------    --------------------
@@ -322,7 +341,7 @@ Hay muchísimas librerías para dar persistencia externa a los datos. La manera 
 
 Una manera simple y muy eficiente cuando se trabaja con bases de datos grandes pero no inmensas es usando tablas de SQLite.
 
-También se puede acceder a bases de datos extenras usando la web. No vamos a mostrar esa funcionalidad aquí, pero es posible y hay muchos métodos y librerías para ello. Para información financiera es particularmente importante, dado que necesitamos información al minuto.
+También se puede acceder a bases de datos externas usando la web. No vamos a mostrar esa funcionalidad aquí, pero es posible y hay muchos métodos y librerías para ello. Para información financiera es particularmente importante, dado que necesitamos información al minuto.
 
 ## Guardar en .csv
 
@@ -334,9 +353,9 @@ write_csv(tibbleCompuesto, "datos/datosFalopa.csv")
 
 ## Guardar en SQLite
 
-Vamos a trabajar con el builtin dataset mtcars y diamonds. 
+Vamos a trabajar con sos built-in dataset mtcars y diamonds. 
 
-Primero hay que crear una concección a la base de datos, CarsDB.db
+Primero hay que crear una concexión a la base de datos, CarsDB.db
 
 ```{r}
 library(RSQLite)
@@ -358,7 +377,7 @@ Finalmente leer de la base de datos con un query SQL
 tibble(dbGetQuery(conn, "SELECT * FROM diamonds_data LIMIT 10"))
 ```
 
-O cargar toda la base de datos. Esto hay que hacerlo con cuidado cuando la base es grande y dependiendo de la RAM de la computadora usada. Nótese que la función dbGetQuery() me devuelve un data frame (df), para convertirmo a tibble debo usar la función tibble() como en el caso anterior.
+O cargar toda la base de datos. Esto hay que hacerlo con cuidado cuando la base es grande y dependiendo de la RAM de la computadora usada. Nótese que la función dbGetQuery() me devuelve un data.frame (df), para convertirlo a tibble debo usar la función tibble() como en el caso anterior.
 
 ```{r}
 # Leer de la base de datos con un query SQL
