@@ -16,6 +16,10 @@ Levin, Richard, David Rubin (2004). Estadística para administración y economí
 
 ### Nivel Básico
 
+Aprende con Alf (Actualización permanente). Manual de Estadística. <https://aprendeconalf.es/docencia/estadistica/manual/>
+
+Kelmansky, Diana M. (2009). Estadística para todos. Estrategias de pensamiento y herramientas para la solución de problemas. Ministerio de Educación, Buenos Aires, Argentina. 272 pgs. (Está en la biblioteca del ISETA y on line) <http://www.bnm.me.gov.ar/giga1/documentos/EL001858.pdf> 
+
 Juan Bosco Mendoza Vega (Actualización permanente). R para principiantes. (on line) <https://bookdown.org/jboscomendoza/r-principiantes4>
 
 Vicente Coll Serrano y Pedro J. Pérez (2018). Curso de Introducción a R. (on line) <https://www.uv.es/vcoll/curso_r.html>
@@ -39,7 +43,7 @@ Otro para valientes Irizarry, Rafael A. (2022, última actualización). Introduc
 
 ## Videos recomendados
 
-Canal de youtube unamunoenlinea. Canal de un profesor de matemásticas que enseña en el CBC de la UBA. Aquí les dejo listas de reproducción a videos explicativos sobre Teoría de conjuntos, combinatoria y probabilidad. Vale la pena revisar la lista completa de videos que tiene, son realmente excelentes.
+Canal de youtube unamunoenlinea. Canal de un profesor de matemáticas que enseña en el CBC de la UBA. Aquí les dejo listas de reproducción a videos explicativos sobre Teoría de conjuntos, combinatoria y probabilidad. Vale la pena revisar la lista completa de videos que tiene, son realmente excelentes.
 
 ### Los Naturales y el Factorial
 

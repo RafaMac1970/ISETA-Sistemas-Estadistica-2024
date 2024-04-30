@@ -16,13 +16,21 @@ library(tidyverse)
 $$
 \mu = \frac{\displaystyle \sum_{i=1}^{N} x_{i}}{N}
 $$
+Siendo:
+ N: tamaño de la población
+ x: la variable de interés
+ i: un individuo de la población
 
 ## Promedio de la muestra
 
 $$
 \overline{x} = \frac{\displaystyle \sum_{i=1}^{n} x_{i}}{n}
 $$
-
+Siendo:
+ n: tamaño de la muestra
+ x: la variable de interés
+ i: un individuo de la muestra
+ 
 ### Ejemplo de cálculo
 
 ```{r}

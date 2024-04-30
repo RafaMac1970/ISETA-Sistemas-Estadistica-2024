@@ -43,17 +43,17 @@ Seguidamente haremos una brevísima síntesis de las herramientas básicas para 
 
 | Operación       | Símbolo   |
 |:----------------|:----------|
-| Suma            | +         |
-| Resta           | -         |
-| Multiplicación  | *         |
+| Suma            | \+        |
+| Resta           | \-        |
+| Multiplicación  | \*        |
 | División        | /         |
 | Resto o módulo  | %%        |
 | División entera | %/%       |
-| Potencia        | ^ ó **    |
-| Raíz            | ^(1/)     |
+| Potencia        | \^ ó \*\* |
+| Raíz            | \^(1/)    |
 | Raíz cuadrada   | sqrt()    |
 
-Asignación <- ó -> ó = (no recomendado =)
+Asignación \<- ó -\> ó = (no recomendado =)
 
 ## Operadores lógicos
 
@@ -62,36 +62,41 @@ Asignación <- ó -> ó = (no recomendado =)
 | Verdadero   | TRUE    |
 | Falso       | FALSE   |
 | y           | &       |
-| o           | \|       |
+| o           | \|      |
 | no          | !       |
-| Mayor       | >       |
-| Mayor igual | >=      |
-| Menor       | <       |
-| Menor igual | <=      |
+| Mayor       | \>      |
+| Mayor igual | \>=     |
+| Menor       | \<      |
+| Menor igual | \<=     |
 | Igual       | ==      |
 | Distinto    | !=      |
 
 ## Orden de operaciones
 
-|Orden        |	Operadores|
-|:------------|:----------|
-|1	          | ^
-|2	          |	* /
-|3	          |	+ -
-|4	          |	< > <= >= == !=
-|5	          |	!
-|6	          |	&
-|7	          |	\|
-|8	          |	<-
+| Orden | Operadores          |
+|:------|:--------------------|
+| 1     | \^                  |
+| 2     | \* /                |
+| 3     | \+ -                |
+| 4     | \< \> \<= \>= == != |
+| 5     | !                   |
+| 6     | &                   |
+| 7     | \|                  |
+| 8     | \<-                 |
 
 ## Literales especiales
 
-| Operación     | Símbolo |
-|:--------------|:--------|
-| Dato faltante | NA      |
-| Objeto nulo   | NULL    |
-| Infinito      | Inf     |
-| Not a Number  | NaN     |
+| Operación         | Símbolo    |
+|:------------------|:-----------|
+| Dato faltante     | NA         |
+| Objeto nulo       | NULL       |
+| Infinito          | Inf        |
+| Not a Number      | NaN        |
+| Constante pi      | pi         |
+| Letras minúsculas | letters    |
+| Letras mayúsculas | LETTERS    |
+| Meses abreviados  | month.abb  |
+| Meses             | month.name |
 
 ## Estructuras de control
 
@@ -113,7 +118,7 @@ Asignación <- ó -> ó = (no recomendado =)
 
 | Operación         | Símbolo |
 |:------------------|:--------|
-| Pipe a la derecha | %>%     |
+| Pipe a la derecha | %\>%    |
 
 # Tipos de datos (Numeric, character , logical, y varios tipos para fechas y tiempos)
 
@@ -390,6 +395,7 @@ h <- list(12, s, t, w, z, now(), y, TRUE)
 h
 class(h)
 ```
+
 ```{r}
 t <- s
 
@@ -397,7 +403,6 @@ s
 t
 h
 ```
-
 
 En una lista los objetos pueden nombrarse
 
@@ -553,7 +558,6 @@ Para un ejemplo lo hacemos implementando el método anterior, el cálculo de la 
 ```{r}
 source("funciones/calcularMediana.R")
 ```
-
 
 ```{r}
 calcularMediana <- function(data) {
