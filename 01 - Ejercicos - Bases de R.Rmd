@@ -9,7 +9,7 @@ output:
 
 Para realizar estos ejercicios use como referencia el documento "01 - Bases de R.Rmd".
 
-Resuelva estos ejercicios en este documento insertando los chuncks necesarios (cntrl + alt + i), luego de cada consigna.
+Resuelva estos ejercicios en este documento insertando los chuncks necesarios (cntrl + alt + i), luego de cada consigna. Agregue al nombre del archivo el suyo al final (01 - Ejercicios - Bases de R - SuNombre Apellido.Rmd), y me lo envía por email.
 
 Cargue las librerías necesaria cuando las necesite, no lo haga al inicio de la actividad. Esto no es el modo habitual de trabajo, pero se pretende aquí que usted descubra cuándo necesita las librerías extra.
 
@@ -46,7 +46,7 @@ Cargue las librerías necesaria cuando las necesite, no lo haga al inicio de la 
 
 -   Cree un vector con los días julianos correspondientes a 50, 100, 150, 200, 250, 300 y 350 días después de su último cumpleaños.
 -   Cree un vector con los días de la semana (como palabras) corerspondientes a las fechas del inciso anterior.
--   Cree un vector con las superficies correspondientes a 5 cuadrados. El primer cuadrado tiene lados de 1m de largo, el segundo tiene lados el doble de largos que el cuadrado anterior, el tercero el triple del cuadrado del doble del inicial... y así sigue la serie. (es decir: 1, 2 \* 1, 3 \* 2 \* 1, ...)
+-   Cree un vector con las superficies correspondientes a 5 cuadrados. El primer cuadrado tiene lados de 1m de largo, el segundo tiene lados el doble de largos que el cuadrado anterior, el tercero el triple del cuadrado del doble del inicial... y así sigue la serie. (es decir: 1, 2 * 1, 3 * 2 * 1, ...)
 -   Cree un vector con los precios de 6 productos y otro con las cantidades vendidas de dichos productos. ¿Cuánto fué el ingreso total de las ventas?
 
 ### Generador de secuencias
