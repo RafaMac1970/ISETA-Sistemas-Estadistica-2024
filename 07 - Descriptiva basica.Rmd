@@ -41,19 +41,34 @@ diamondsTidy
 Se puede calcular los índices que se desee a cada grupo de interés. Creamos un nuevo data set con los índices que nos interese comparar.
 
 ```{r}
-indicesDiamonds <- diamondsTidy %>% group_by(cut,color,clarity,Variable) %>% reframe(n = n(), media = mean(valor), moda = moda(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
+indicesDiamonds <- diamondsTidy %>% 
+  group_by(cut,color,clarity,Variable) %>% 
+  reframe(n = n(), media = mean(valor), moda = moda(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
 indicesDiamonds
 ```
 
 ## Matriz gráfica de correlación
 
-```{r fig.height=10, fig.width=12, message=FALSE, warning=FALSE}
+```{r fig.height=15, fig.width=15, message=FALSE, warning=FALSE}
 diamonds %>% 
   subset(y < 20) %>% subset(z < 10) %>% # para quitar 3 puntos outliers
    ggpairs(aes(color = cut, alpha = 0.5))
  # ggpairs(columns = c(1,5:10), aes(color = cut, alpha = 0.5))
  # ggpairs(columns = c(2:4), aes(color = cut, alpha = 0.5))
 ```
+
+```{r}
+cor(diamonds[,c(1,5:10)])
+```
+```{r}
+library(Hmisc)
+
+rcorr(as.matrix(diamonds[,c(1,5:10)]))
+```
+```{r}
+diamonds[,c(1,5:10)]
+```
+
 
 ## Histograma y Densidad para una variable (Ej. "depth")
 
@@ -162,3 +177,5 @@ library("cowplot")
 # Graficar en grilla
 plot_grid(p1,p2,p3,p4, labels = "AUTO")
 ```
+
+
