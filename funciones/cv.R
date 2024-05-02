@@ -1,3 +1,3 @@
-cv <- function(data) {
-  sd(data)/mean(data)
+cv <- function(aVector) {
+  sd(aVector)/mean(aVector)
 }

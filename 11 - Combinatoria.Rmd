@@ -28,6 +28,11 @@ Para explicaciones más completas y formalmente más desarrolladas (explicado mu
 
 Miguel R. Wilhelmi (2004). Combinatoria y Probabilidad. Universidad de Granada. España. 275 pgs. <https://www.ugr.es/~batanero/pages/ARTICULOS/librowhilhelmi.pdf>
 
+```{r}
+library(gtools)
+```
+
+
 ### Factorial
 
 En combinatoria se usa mucho una herramienta matemática muy útil que necesita una explicación (sencilla).
@@ -83,7 +88,7 @@ Los Naturales y el Factorial <https://www.youtube.com/watch?v=VJHE7vwsxrg>
 Existen tres tipos básicos de operaciones que podemos realizar sobre un conjunto de elementos: Permutaciones, Variaciones y Combinaciones.
 
 | Orden      | Operacion     | Elementos involucrados               |                      Sin Rep.                       |                  Con Rep.                   |
-|:-------------|:-------------|:------------------|:------------:|:------------:|
+|:-----------|:--------------|:-------------------------------------|:---------------------------------------------------:|:-------------------------------------------:|
 | Importa    | Permutaciones | Todos los elementos del conjunto (m) |                   $$P_{m} = m!$$                    |              $$P'_{m} = m^m$$               |
 | Importa    | Variaciones   | Todos (m) tomados de a k             |           $$V_{m,k} = \frac{m!}{(m-k)!}$$           |             $$V'_{m,k} = m^k$$              |
 | No Importa | Combinaciones | Todos (m) tomados de a k             | $$C_{m,k} = \frac{m!}{(m-k)! . k!} = \binom{m}{k}$$ | $$C'_{m,k} = \frac{(m+k-1)!}{k! . (m-1)!}$$ |

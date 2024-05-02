@@ -45,6 +45,10 @@ Otro para valientes Irizarry, Rafael A. (2022, última actualización). Introduc
 
 Canal de youtube unamunoenlinea. Canal de un profesor de matemáticas que enseña en el CBC de la UBA. Aquí les dejo listas de reproducción a videos explicativos sobre Teoría de conjuntos, combinatoria y probabilidad. Vale la pena revisar la lista completa de videos que tiene, son realmente excelentes.
 
+### Teoría de conjuntos
+
+<https://www.youtube.com/watch?v=OwyaMi3UnQY&t=1236s>
+
 ### Los Naturales y el Factorial
 
 <https://www.youtube.com/watch?v=VJHE7vwsxrg&list=PL2fBB5seGsOWKATwyDy76rGyBGmdN5p5m>
