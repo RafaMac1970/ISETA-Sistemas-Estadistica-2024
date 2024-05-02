@@ -55,12 +55,12 @@ Todos los índices siguientes deben calcularse sobre cada variable cuantitativa 
 
 ## Toda la información en un tibble
 
--   Todos los índices en un solo tibble.
+-   Todos los índices en un solo tibble. Esto permite exportar la información ordenada.
 
 ## Gráficos
 
 -   Histogramas
 -   Densidad
 -   Probabilidad acumulada
--   Box Plot
+-   Box Plot y violín
 
