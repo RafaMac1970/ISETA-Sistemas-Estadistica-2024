@@ -51,6 +51,8 @@ Todos los índices siguientes deben calcularse sobre cada variable cuantitativa 
 -   Desvío Estándar
 -   Coeficiente de Variación
 -   Error Estándar
+-   Asimetría
+-   Kurtosis
 -   Intervalo de confianza
 
 ## Toda la información en un tibble

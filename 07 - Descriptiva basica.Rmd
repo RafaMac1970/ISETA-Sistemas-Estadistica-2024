@@ -11,6 +11,7 @@ library(ggplot2)
 library(ggExtra)
 library(patchwork)
 library(GGally)
+library(moments)
 # Cargamos las funciones que hemos ido creando:
 source("funciones/funcionesPersonales.R")
 ```
@@ -43,7 +44,7 @@ Se puede calcular los índices que se desee a cada grupo de interés. Creamos un
 ```{r}
 indicesDiamonds <- diamondsTidy %>% 
   group_by(cut,color,clarity,Variable) %>% 
-  reframe(n = n(), media = mean(valor), moda = moda(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
+  reframe(n = n(), media = mean(valor), moda = moda(valor), q1 = q1(valor), mediana = median(valor),q3 = q3(valor), sd = sd(valor), varianza = var(valor), cv = sd/media, EE = std.error(valor), asimetria = skewness(valor), curtosis = kurtosis(valor), "IC95-" = ic95(valor)[1], "IC95+" = ic95(valor)[2])
 indicesDiamonds
 ```
 
