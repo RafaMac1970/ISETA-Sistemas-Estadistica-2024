@@ -94,3 +94,24 @@ Canal de youtube unamunoenlinea. Canal de un profesor de matemáticas que enseñ
 ### Unidad 8- Correlación lineal y regresión
 
 - Covarianza, correlación y regresión. Modelo de regresión lineal. Estimación por mínimos cuadrados. Especificación del modelo, bondad del ajuste, interpretación e inferencia.
+
+# Perlas
+
+## Gapminder
+
+Exixste un sitio donde encontrar mucha y muy buena información estadística global acerca de cómo es el mundo. Fué creado por Hans Rosling y  actualmente lo sigue manteniendo su hijo Ola Rosling. Abajo dejo una conferencia TED que dió Hans Rosling en 2006 que es de lo mejor que he visto y por eso recomiendo que dediquen un rato para disfrutarla. Es una de las conferencias más vistas del mundo.
+
+GapMinder <https://www.gapminder.org/>
+
+Charla TED 2006 <https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen?referrer=playlist-the_best_hans_rosling_talks_yo&autoplay=true>
+
+En el sitio de TED están todas las confererncias que dió y todas son excelentes. <https://www.ted.com/playlists/474/the_best_hans_rosling_talks_yo>
+
+## The imitation game
+
+Es una película sobre Alan Turing, un pionero del desarrollo de las computadoras y un adelantado para su época. La película es excelente, espero que la disfruten!
+
+<https://www.imdb.com/title/tt2084970/>
+
+La película puede verse en varias plataformas de streaming (como Netflix y Amazon Prime video, Google Play Movies y YouTube). En español se tradujo el título a "El código enigma".
+

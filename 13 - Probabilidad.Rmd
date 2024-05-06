@@ -147,6 +147,8 @@ mean((resultados[, 1] == "Pamela" & resultados[, 2] == "Enrique") |
      (resultados[, 1] == "Enrique" & resultados[, 2] == "Pamela"))
 ```
 
+## Simulaciones
+
 Si bien podemos obtener la probabilidad calculando todas las combinaciones, en R será muy frecuente utilizar Montecarlo para estimar la probabilidad por simulación. Para el caso anterior no tendríamos que generar todas las combinaciones, sino simplemente sacar una muestra de dos personas que serían los miembros del equipo ganador. Recordemos que hemos asumido que todos tienen igualdad de posibilidades de ganar.
 
 Luego, tendríamos que replicar este experimento una y otra vez, almacenar los resultados del muestreo y calcular la proporción de cuántas veces el equipo ganador fue compuesto por Pamela y Enrique.

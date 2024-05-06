@@ -66,3 +66,18 @@ Todos los índices siguientes deben calcularse sobre cada variable cuantitativa 
 -   Probabilidad acumulada
 -   Box Plot y violín
 
+# Sugerencias
+
+En el siguiente sitio hay varios test de reflejos, memoria etc. que podrían realizar varias veces cada uno y recopilar datos de esta manera. Obviamente debe haber infinidad de este tipo de sitios, puede elejir el que le resulte más adecuado.
+https://www.arealme.com/apm-actions-per-minute-test/es/
+
+En realidad el sitio anterior tiene muchos otros tipos de tests que podría usar.
+https://www.arealme.com/es
+
+Puede recopilar una serie de objetos similares (por ejemplo plantas), y medirle varias cosas a cada una (como altura, peso, cantidad de hojas, cantidad de flores).
+
+Armar una encuesta por teléfono que tenga 4 preguntas, 2 para responder con números reales, y 2 con números enteros. Ejemplo, ¿Cuántas veces por día se sienta a comer?, ¿Cuántos días por semana come usted carne?, Estime cuánta agua consume por día (en litros), ¿Cuánto tiempo promedio dedica cada vez que se sienta a comer? (en minutos), etc. Una encuesta así puede armarse con los formularios de google. Aquí un ejemplo: <https://docs.google.com/forms/d/e/1FAIpQLSee2VpYipwupnrGSA1Iz3m7_wNtoq_UHquwPa-ApN3WxVcefA/viewform?usp=sf_link>
+
+Podría pararse en una esquina transitada de 9 de Julio y contar cuántas personas viajan en cada auto que pase durante un rato, cuánto tiempo transcurre entre la pasada de un auto y el siguiente, cantidad de autos que pasan en un período de tiempo fijo, generar categorías de vehículos (bicicleta, moto, auto, camioneta, etc.) y contar cuántos pasan de cada uno en un período de tiempo fijo, si hace marcas en el asfalto puede medir tiempos en recorrer cierta distancia y así calcular la velocidad, etc. Este experimento puede repetirse en diferentes momentos del día.
+
+Los ejemplos anteriores son para inducir su imaginación, hay infinidad de cosas para medir. Sólo piense en algo que le genere curiosidad y luego pregúntese qué y cómo puede medirlo. Inténte algo que le divierta aunque no salga como esperaba.
