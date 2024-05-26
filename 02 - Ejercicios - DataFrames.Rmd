@@ -21,9 +21,9 @@ Cargue las librerías necesaria cuando las necesite, no lo haga al inicio de la 
 
 -   Asegurese de controlar el tipo de datos de cada columna. Por ejemplo, CYLINDERS debería ser integer, MAKE podría ser factor. Decida usted qué tipo de datos representa mejor a cada variable.
 
--   Convierta el dataset a Tidy. Hágalo como le parezca, tendremos tiempo de discutir estas decisiones. Puede usar la función pivot_longer().
-
 -   Cree al menos una columna usando información de las otras.
+
+-   Convierta el dataset a Tidy. Hágalo como le parezca, tendremos tiempo de discutir estas decisiones. Puede usar la función pivot_longer().
 
 -   Cree un nuevo tibble con información parcial del dataset anterior. Puede filtrar y reducir la cantidad de filas y elegir algunas columnas.
 
@@ -47,8 +47,6 @@ Parcelas de 10 pl/m2. 230 221 223 209 233 230 231 221 213 214 219 238 229 224 23
 
 -   Guarde esa información en un archivo .csv y en otra tabla de la base de datos SQLite.
 
-
-
 ## Acceder a la información de un tibble
 
 ### Fuel Consumption
@@ -66,3 +64,4 @@ Parcelas de 10 pl/m2. 230 221 223 209 233 230 231 221 213 214 219 238 229 224 23
 ### Girasol
 
 -   ¿Cuál es el promedio de altura de cada tratamiento?
+

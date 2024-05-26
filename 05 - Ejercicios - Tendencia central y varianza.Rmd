@@ -15,7 +15,7 @@ Cargue las librerías necesaria cuando las necesite, no lo haga al inicio de la 
 
 ## Experimento
 
-Existen experimentos manipulativos o mensurativos. 
+Existen experimentos manipulativos o mensurativos.
 
 Los manipulativos son aquellos en los que manipulamos algo y medimos variables sobre lo manipulado. Por ejemplo, regamos plantas de tomate con dos cantidades diferentes de agua y cierto tiempo depués medimos altura, peso, cantidad de hojas, cantidad de flores, cantidad de frutos, peso de los frutos, etc. de las plantasde tomate en ambos tratamientos. 
 

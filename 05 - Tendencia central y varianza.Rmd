@@ -5,6 +5,16 @@ output:
     toc: true
 ---
 
+## Teoría
+
+### Video
+
+Canal de youtube Ingeniería elemental. Varianza y Desviación Estándar <https://www.youtube.com/watch?v=cg4kUsbjQms> 
+
+Canal de youtube Ingeniería elemental. Comprendiendo la Desviación Estándar.
+<https://www.youtube.com/watch?v=WJ8uG5nYxak&list=PLOo4zWKKHXDIWF77kPXFVwXBA3drT7uG2&index=2>
+
+
 ```{r}
 library(tidyverse)
 ```
@@ -52,6 +62,8 @@ sum(muestraA) / length(muestraA)
 
 ```{r}
 # Escribir una función que encuentre la moda. Moda es el valor que aparece más cantidad de veces.
+
+table(muestraA)
 moda <- function(unVector){
   frecuencias <- table(unVector)
   names(frecuencias[frecuencias == max(frecuencias)])

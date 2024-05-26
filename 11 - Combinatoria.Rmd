@@ -74,7 +74,7 @@ Si se trata de calcular el factorial de un número grande la computadora consume
 
 ```{r}
 for (i in 1:172) {
-  print(nuestroFactorial(i))
+  print(paste(i, nuestroFactorial(i)))
 }
 ```
 
