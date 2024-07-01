@@ -3,7 +3,6 @@ title: "11 - Combinatoria"
 output: 
   html_notebook: 
     toc: true
-    fig_caption: true
 ---
 
 Para abordar el problema de la "probabilidad", que está en los fundamentos más básicos de la estadística, se debe conocer la teoría matemática que trata sobre los arreglos diferentes que se puede obtener en conjuntos de elementos en diferentes situaciones. Esta especialidad dentro de la matemática se llama Combinatoria. En este capítulo vamos a abordar este problema.
