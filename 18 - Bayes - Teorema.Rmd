@@ -118,3 +118,13 @@ resultados <- replicate(100000, {
 table(resultados)
 proportions(table(resultados))
 ```
+
+# Bayes multinomial
+
+A siguiente expresión muestra un caso donde B tiene dos posibilidades B y el complemento B, en cambio A tiene varias (n) posibilidades. Por eso la P(A) es la suma expresada en el denominador.
+
+$$
+P(A|B) = \frac{P(B|A) \cdot P(A)}{\sum_{k=1}^{n} P(B|A_{k}) \cdot P(A_{k})}
+$$
+
+
