@@ -94,7 +94,7 @@ Probabilidad      a/a+c     b/b+d
 --------------   -------    -------    -------
 Odds Ratio = (a/c) / (b/d)
 
-a/c = es el odds de los "Fumadores". Esto dice cuantos casos de ACV hay respecto de los casos que no tienen ACV dentro de los "Fumadores" Cuanto payor proporción de ACV, mayor es este número. Si el valor es 0.5 significa que hay tantos casos positivos de ACV como negativos.
+a/c = es el odds de los "Fumadores". Esto dice cuantos casos de ACV hay respecto de los casos que no tienen ACV dentro de los "Fumadores" Cuanto mayor proporción de ACV, mayor es este número. Si el valor es 0.5 significa que hay tantos casos positivos de ACV como negativos.
 
 b/d = es el odds de los "NO Fumadores". Esto es lo mismo pero en el otro grupo, los "NO Fumadores".
 
@@ -102,7 +102,7 @@ El Odds Ratio (OR) es la razón entre los odds anteriores, de los "Fumadores" re
 
 También se puede calcular los Odds y OR para las filas, la interpretación es algo diferente y la conclusión se expresa direfente, pero la esencia del fenómeno es el mismo.
 
-Si este ejercicio se hace con las probabilidades en lugar de los odds, entonces el equivalente al OR lo llamanos "Riesgo Relativo". El OR puede variar entre 0 e infinito, mientras que el Riesgo Relativo varía entre 0 y 1, siendo 0.5 el mismo riesgo entre los dos grupos.
+Si este ejercicio se hace con las probabilidades en lugar de los odds, entonces el equivalente al OR lo llamanos "Riesgo Relativo" (RR). El OR y el RR pueden variar entre 0 e infinito, siendo 1 el mismo Odds entre los dos grupos, y 0.5 el mismo riesgo entre los dos grupos.
 
 ## Un ejemplo
 
