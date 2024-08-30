@@ -11,7 +11,7 @@ output:
 
 Se realizó un muestreo de los tiempos de reacción de cuatro individuos. Para esto una persona (sujeto) apoyó el brazo apoyado y con su mano asomando sobre uno de los costados de una mesa. Otra persona (aplicador) sostuvo una regla de 30cm de largo de modo que el 0 (cero) de la regla quede entre los dedos pulgar e índice del sujeto (con el cero en el extremo bajo de la regla). El aplicador suelta la regla sin previo aviso y el sujeto debe detener la caída de la regla presionando sus dedos sobre la misma. Este procedimiento se realizó 30 (treinta) veces seguidas a cada sujeto.
 
-Los resultados se registraron en la planilla "REFLEJOS.csv" que se encuentra en la carpeta "datos".
+Los resultados se registraron en la planilla "REFLEJOS.csv" que se encuentra en la carpeta "datos". Los datos fueron recopilados por el curso de "Estadística" del año 2023, de la carrera de "Análisis de Sistemas" del ISETA.
 
 ## Carga de librerías
 
@@ -19,6 +19,8 @@ Los resultados se registraron en la planilla "REFLEJOS.csv" que se encuentra en 
 library(tidyverse)
 library(ggplot2)
 library(patchwork)
+library(plotrix)
+library(moments)
 ```
 
 ## Carga de datos
@@ -59,12 +61,13 @@ Luego tenemos que despejarlo en la ecuación:
 $$
 t = \sqrt{\frac{2 . Dist_{(t)}}{981}}
 $$
-
+Con esta teoría (física de caída libre) podemos crear una nueva variable calculada a partir del dato de Distancia para cada una de las veces que se soltó la regla. Aprovechamos además para darle al tibble formato tidy.
+ 
 ```{r}
 # Reorganiza los datos en una estructura tidy
 data_tidy <- data %>%
   pivot_longer(cols = -ORDEN, names_to = "NOMBRE", values_to = "VALOR") %>%
-  mutate(DISTANCIA = as.numeric(gsub(",", ".", VALOR)), TIEMPO = sqrt(2 * DISTANCIA / 981)) %>% select(ORDEN, NOMBRE, DISTANCIA, TIEMPO)
+  mutate(DISTANCIA = VALOR, TIEMPO = sqrt(2 * DISTANCIA / 981)) %>% select(ORDEN, NOMBRE, DISTANCIA, TIEMPO)
 
 # Visualiza los primeros registros de la estructura tidy
 head(data_tidy)
@@ -74,7 +77,7 @@ head(data_tidy)
 # data_tidy <- data_tidy %>% filter(DISTANCIA < 30)
 ```
 
-Conservamos la información de ORDEN en el que se obtuvieron los datos para poder verificar si a lo largo del experimento hubo cambios en la reacción de cada sujeto.
+Conservamos la información de ORDEN en el que se obtuvieron los datos para poder verificar si a lo largo del experimento hubo cambios en la reacción de cada sujeto (ser sección "Variaciones durante el experimento").
 
 ```{r}
 write_csv(data_tidy, "datos/reflejos_tidy.csv")
@@ -101,6 +104,12 @@ ggplot(data_tidy, aes(x = TIEMPO, fill = NOMBRE)) +
   facet_wrap(vars(NOMBRE)) +
   theme_minimal()
 ```
+
+#### Observaciones:
+
+-   La dispersión de los datos de MARIO es mucho mayor que la del resto, además no parece ser "normal". Esto probablemente se deba a que el operario que soltó la regla fué diferente al resto.
+-   Los datos de tiempo y los de distancia tienen histogramas con forma similar (lo que era previsible) sin embargo tienen alguna diferencia que podría cambiar las conclusiones que podemos extraer de ambos análisis.
+-   Los rangos de variación de los datos de LAUTA, NACHO y RAFA son similares.
 
 ### DISTANCIA
 
@@ -161,6 +170,14 @@ shapiro_results <- data_tidy %>%
 print(shapiro_results)
 ```
 
+#### Observaciones:
+
+-   Las medias y las medianas son similares en todos los casos indicando que no hay asimetrías importantes.
+-   El coeficiente de variación de MARIO es del 51%, respecto del 18% del resto, lo que confirma las apreciaciones visuales previas.
+-   La asimetría y kurtosis de LAUTA es mayor al resto, lo que puede observarse en los histogramas también, mostrando que los tiempo de reacción fueron cortos en mayor cantidad de las pruebas.
+-   Los intervalos de confianza muestran mucha superposición, lo que muestra que la variabilidad entre pruebas de una persona es mayor a las diferencias que existen entre las medias de las personas.
+-   Existen algunos datos extremos que quizás valga la pena excluir del análisis (datos de distancia mayor o igual a 30cm, quees el límite de la regla).
+
 ### TIEMPO
 
 #### Tendencia central y dispersión
@@ -209,10 +226,15 @@ shapiro_results <- data_tidy %>%
 print(shapiro_results)
 
 ```
+#### Observaciones:
+
+-   Los coeficiente de variacióndel TIEMPO son sensiblemente menores a los de DISTANCIA, además las asimetrías y kurtosis son más similares entre individuos, lo que indica que esta variable es más robusta que la anterior.
+-   El resto de las observaciones siguensiendo pertinentes al observar el TIEMPO.
+
 
 ## MODIFICACIÓN del dataset!!!
 
-Se propone volver a la línea 76 y descomentarla para descartar los datos en que la DISTANCIA sea menor a 30.
+Se propone volver a la línea 76 y descomentarla para descartar los datos en que la DISTANCIA sea mayor a 30.
 
 ## Test de Hipótesis
 
@@ -223,7 +245,7 @@ Se propone volver a la línea 76 y descomentarla para descartar los datos en que
 grafDistancia1 <- ggplot(data_tidy, aes(x = DISTANCIA, fill = NOMBRE)) +
   geom_density(alpha = 0.5) +
   geom_vline(data = data_tidy %>% group_by(NOMBRE) %>% summarise(mean_value = mean(DISTANCIA)),
-             aes(xintercept = mean_value, color = NOMBRE), linetype = "dashed", size = 1) +
+             aes(xintercept = mean_value, color = NOMBRE), linetype = "dashed", linewidth = 1) +
   labs(title = "Distribución y Medias por NOMBRE", x = "DISTANCIA", y = "Densidad") +
   facet_grid(rows = vars(NOMBRE)) +
   theme_minimal()
@@ -234,7 +256,7 @@ grafDistancia1 <- ggplot(data_tidy, aes(x = DISTANCIA, fill = NOMBRE)) +
 grafTiempo1 <- ggplot(data_tidy, aes(x = TIEMPO, fill = NOMBRE)) +
   geom_density(alpha = 0.5) +
   geom_vline(data = data_tidy %>% group_by(NOMBRE) %>% summarise(mean_value = mean(TIEMPO)),
-             aes(xintercept = mean_value, color = NOMBRE), linetype = "dashed", size = 1) +
+             aes(xintercept = mean_value, color = NOMBRE), linetype = "dashed", linewidth = 1) +
   labs(title = "Distribución y Medias por NOMBRE", x = "TIEMPO", y = "Densidad") +
   facet_grid(rows = vars(NOMBRE)) +
   theme_minimal()
@@ -346,8 +368,8 @@ nombre2 <- indicesReflejosTiempo[[menor,1]]
 rango <- c(-0.05, 0.3)
 
 ggplot(data.frame(x = rango), aes(x = rango)) +
-  stat_function(fun = dnorm, n = 30, args = list(mean = media1, sd = sd1), color = 'red') +
-  stat_function(fun = dnorm, n = 30, args = list(mean = media2, sd = sd2), color = 'blue') +
+  stat_function(fun = dnorm, n = 101, args = list(mean = media1, sd = sd1), color = 'red') +
+  stat_function(fun = dnorm, n = 101, args = list(mean = media2, sd = sd2), color = 'blue') +
   geom_area(stat = 'function', fun = dnorm, args = list(mean = media1, sd = sd1), fill = 'red', xlim = c( min(rango),alfa1), alpha = 0.5) +
   annotate(
     "text", label = nombre1,
@@ -458,8 +480,8 @@ nombre2 <- indicesReflejosDist[[menor,1]]
 rango <- c(-10, 40)
 
 ggplot(data.frame(x = rango), aes(x = rango)) +
-  stat_function(fun = dnorm, n = 30, args = list(mean = media1, sd = sd1), color = 'red') +
-  stat_function(fun = dnorm, n = 30, args = list(mean = media2, sd = sd2), color = 'blue') +
+  stat_function(fun = dnorm, n = 101, args = list(mean = media1, sd = sd1), color = 'red') +
+  stat_function(fun = dnorm, n = 101, args = list(mean = media2, sd = sd2), color = 'blue') +
   geom_area(stat = 'function', fun = dnorm, args = list(mean = media1, sd = sd1), fill = 'red', xlim = c( min(rango),alfa1), alpha = 0.5) +
   annotate(
     "text", label = nombre1,
@@ -486,8 +508,8 @@ nombre2 <- indicesReflejosTiempo[[menor,1]]
 rango <- c(-0.05, 0.3)
 
 ggplot(data.frame(x = rango), aes(x = rango)) +
-  stat_function(fun = dnorm, n = 30, args = list(mean = media1, sd = sd1), color = 'red') +
-  stat_function(fun = dnorm, n = 30, args = list(mean = media2, sd = sd2), color = 'blue') +
+  stat_function(fun = dnorm, n = 101, args = list(mean = media1, sd = sd1), color = 'red') +
+  stat_function(fun = dnorm, n = 101, args = list(mean = media2, sd = sd2), color = 'blue') +
   geom_area(stat = 'function', fun = dnorm, args = list(mean = media1, sd = sd1), fill = 'red', xlim = c( min(rango),alfa1), alpha = 0.5) +
   annotate(
     "text", label = nombre1,
