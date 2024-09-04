@@ -17,7 +17,7 @@ library(BSDA)
 
 # Ejercicios
 
-## 1. Nicotina encigarrillos. (Resuelto)
+## 1. Nicotina en cigarrillos. (Resuelto)
 
 Un fabricante de cigarrillos sostiene que el contenido promedio de nicotina de su producto es menor que 0.7 miligramos por cigarrillo y solicita autorización para incluir esta afirmación en su publicidad. Para decidir si autorizarlo o no, es necesario establecer si es razonable dar por cierta dicha afirmación mediante una prueba de hipótesis. Para ello, se decide obtener una muestra aleatoria de 30 cigarrillos de la marca en cuestión y determinar el contenido de nicotina de cada uno.
 
@@ -66,7 +66,7 @@ pNicotinaAlta
 
 > El problema pide utilizar una distribución Normal, por eso usamos z.test(), aunque al tratarse de una muestra lo correcto sería utilizar una prueba t.test() (como se hace más abajo). Nótese que las diferencias son leves y no cambian la conclusión en este caso.
 
-> La opción alternative='less' indica que la hipótesis alternativa H1 dice que mu es menor (less) a 0.7 mg/cigarrillo.
+> La opción alternative='less' indica que la hipótesis alternativa H1 dice que media0 es menor (less) a 0.7 mg/cigarrillo.
 
 ```{r}
 zTestCigarrillos <- z.test(cigarrillos, alternative='less', mu = 0.7,  sigma.x = sd(cigarrillos)) #  "less" "two.sided" o "greater" 
