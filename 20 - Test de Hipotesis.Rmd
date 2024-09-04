@@ -60,7 +60,7 @@ Lo que cambia en cada caso es el estadístico de prueba, es decir el valor que c
 
 La siguiente tabla es un resumen acerca de los tipos básicos de pruebas de hipótesis. Con esta tabla podrá realizar la mayoría de las pruebas de hipótesis para variables cuantitativas. Fué tomada de: <https://maniqui-es.com/educacin-y-lenguas/matemticas/estadsticas/18655-manejo-de-pruebas-de-hiptesis-estadsticas.html>
 
-Nótese que no diferencia entre población y muestra, sólo muestra el aspecto matemático de la diferencia indicando el desvío estandat como sigma o S. Las pruebas sobre la población usan una distribución Z, que la Normal estandarizada. En cambio las pruebas sobre la muestra usan una distribución T de Student.
+Nótese que no diferencia entre población y muestra, sólo muestra el aspecto matemático de la diferencia indicando el desvío estandar como sigma o S. Las pruebas sobre la población usan una distribución Z, que es la Normal estandarizada. En cambio las pruebas sobre la muestra usan una distribución T de Student.
 
 ![](images/handling-statistical-hypothesis-tests_1.jpg)
 
@@ -80,8 +80,6 @@ Se usan las expresiones "diferencia significativa" y "diferencia no significativ
 Existe diferrencia estadísticamente significativa cuando rechazamos la hipótesis nula, es decir que el "valor-p" es menor a "⍺". Esto significa que cometemos un error menor al aceptable al decir que NO es cierto que las medias comparadas son iguales (H0), y por lo tanto aceptamos la hipótesis alternativa (H1), que dice que las medias son diferentes entre sí.
 
 Cuando el "valor-p" es mayor a "⍺", decimos que las diferencias medidas son "no significativas" (no decimos que no existen, para esto deberíamos evaluar el error de tipo II). Es decir que las diferencias no son suficientemente grandes como para asegurar con baja probabilidad de equivocarnos que los datos obtenidos son diferentes entre las dos poblaciones de referencia.
-
-## Comparación de una muestra con un valor de referencia.
 
 # Análisis de casos concretos.
 
@@ -116,11 +114,20 @@ Además vamos a submuestrear las mediciones originales para observar el efecto d
 # reflejosTidy <- reflejosTidy %>% filter(ORDEN <= 10)
 ```
 
+### Comparación de una muestra con un valor de referencia. (Una media poblacional, unilateral izquierda)
+
+Suele considerarse que el tiempo de reacción media de una persona normal (al realizar una tarea simple) que está atenta al estímulo varía alrrededor de 0.22 segundos. Este valor puede variar de acuerdo a las circunstancias (depende cómo se lo mida, si la persona está entrenada -como los deportistas-, qué estímulo desencadena la respuesta, qué respuesta se considera, la complejidad de la decisión,etc.). Queremos verificar si las personas que hicieron el experimento tienen reflejos más rápidos al promedio poblacional. Para este caso vamos a usar 0.22 segundos como valor de referecia.
+
+Por lo tanto nuestras hipótesis serían:
+
+$$
+H_{0}: \mu \geq 0.22 \\
+H_{1}: \mu < 0.22
+$$
+
 ### Primero un BoxPlot
 
 ```{r}
-desvioEstandarPoblacion <- sd(reflejosTidy$TIEMPO)
-desvioEstandarPoblacion
 mu <- 0.22 # es el valor de referencia en nuestras hipótesis
 ```
 
@@ -133,23 +140,16 @@ ggplot(reflejosTidy) +
   geom_hline(yintercept = mu)
 ```
 
-
-### Comparación de una muestra con un valor de referencia. (Una media poblacional, unilateral izquierda)
-
-Suele considerarse que el tiempo de reacción media de una persona normal (al realizar una tarea simple) que está atenta al estímulo varía alrrededor de 0.22 segundos. Este valor puede variar de acuerdo a las circunstancias (depende cómo se lo mida, si la persona está entrenada -como los deportistas-, qué estímulo desencadena la respuesta, qué respuesta se considera, la complejidad de la decisión,etc.). Queremos verificar si las personas que hicieron el experimento tienen reflejos más rápidos al promedio poblacional. Para este caso vamos a usar 0.22 segundos como valor de referecia.
-
-Por lo tanto nuestras hipótesis serían:
-
-$$
-H_{0}: \mu \geq 0.22 \\
-H_{1}: \mu < 0.22
-$$
-
 #### Suponiendo que conocemos la varianza de la población.
 
 Primero vamos a calcular los parámetros necesarios. Como lo que necesitaremos es el desvío estándar lo calcularemos en lugar de la varianza.
 
 La varianza de la población la calcularemos como la varianza de las mediciones de las 3 personas medidas. (es una suposición que no debe estar muy alejada de la realidad, pero deberíamos ser cuidadosos con esa suposición).
+
+```{r}
+desvioEstandarPoblacion <- sd(reflejosTidy$TIEMPO)
+desvioEstandarPoblacion
+```
 
 Además elegiremos como un error máximo aceptable el 5%, es decir que alfa = 0.05. Esto quiere decir que si aceptamos H0, lo hacemos con el 95% de confianza.
 
@@ -254,14 +254,16 @@ Interpretación: (para el caso de RAFA y con la muestra completa - n = 29-) como
 
 ### Comparación de dos muestras. (Dos medias poblacionales independientes, bilateral)
 
-Aquí vamos a comparar los tiempos de reacción de de dos personas. Como a priori no tengo ninguna razón para suponer que una de las personas tiene menor tiempo de respuesta que otra, las hipótesis se plantean como igual o distinto.
+Aquí vamos a comparar los tiempos de reacción de dos personas. Como a priori no tengo ninguna razón para suponer que una de las personas tiene menor tiempo de respuesta que otra, las hipótesis se plantean como igual o distinto.
 
 En este caso las muestras NO son apareadas ya que cada medición es independiente.
 
 $$
 H_{0}: \mu_A = \mu_B \\
 H_{1}: \mu_A \neq \mu_B
-$$ Que es lo mismo que decir:
+$$ 
+
+Que es lo mismo que decir:
 
 $$
 H_{0}: \mu_A - \mu_B = 0\\
@@ -327,7 +329,7 @@ tTestDiferencia <- t.test(muestraP1$TIEMPO, muestraP2$TIEMPO, alternative = "two
 tTestDiferencia
 ```
 
-Nótese que este método realizó el test de Welch en vez del de Student, las diferencias son leves y se deben a un leve ajuste que hace cuando calcula el estadístico de Prueba y los grados de libertad. Este ajuste depende de las diferencias entre las varianzas de las dos muestras. Cuando las varianzas son iguales, los dos test dan el mismo resultado. Puede verificar esto al comparar RAFA con LAUTA (varianzaas diferentes) o RAFA con NACHO (varianzas parecidas).
+Nótese que este método realizó el test de Welch en vez del de Student, las diferencias son leves y se deben a un leve ajuste que hace cuando calcula el estadístico de Prueba y los grados de libertad. Este ajuste depende de las diferencias entre las varianzas de las dos muestras. Cuando las varianzas son iguales, los dos test dan el mismo resultado. Puede verificar esto al comparar RAFA con LAUTA (varianzas diferentes) o RAFA con NACHO (varianzas parecidas).
 
 
 ```{r}
