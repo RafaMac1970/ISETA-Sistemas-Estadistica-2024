@@ -56,6 +56,14 @@ Todas estas hipótesis se prueban en principio con una distribución T de Studen
 
 Lo que cambia en cada caso es el estadístico de prueba, es decir el valor que comparo con la distribución de probabilidad (en este caso T de Student). Esto es lo que me permite calcular el la probabilidad de error (valor-p).
 
+## Estadísticos de prueba.
+
+La siguiente tabla es un resumen acerca de los tipos básicos de pruebas de hipótesis. Con esta tabla podrá realizar la mayoría de las pruebas de hipótesis para variables cuantitativas. Fué tomada de: <http://>
+
+Nótese que no diferencia entre población y muestra, sólo muestra el aspecto matemático de la diferencia indicando el desvío estandat como sigma o S. Las pruebas sobre la población usan una distribución Z, que la Normal estandarizada. En cambio las pruebas sobre la muestra usan una distribución T de Student.
+
+![](images/handling-statistical-hypothesis-tests_1.jpg)
+
 # Pasos para realizar las pruebas de Hipótesis
 
 1.  Formular dos hipótesis estadísticas. (la nula H0 y la alternativa H1)
@@ -113,7 +121,7 @@ Además vamos a submuestrear las mediciones originales para observar el efecto d
 ```{r}
 desvioEstandarPoblacion <- sd(reflejosTidy$TIEMPO)
 desvioEstandarPoblacion
-mediaPoblacion <- 0.22 # es el valor de referencia en nuestras hipótesis
+mu <- 0.22 # es el valor de referencia en nuestras hipótesis
 ```
 
 ```{r}
@@ -122,7 +130,7 @@ ggplot(reflejosTidy) +
   geom_boxplot() +
   geom_jitter(width = 0.2, alpha = 0.5, color = "blue") +
   ylim(c(0, 0.25)) +
-  geom_hline(yintercept = mediaPoblacion)
+  geom_hline(yintercept = mu)
 ```
 
 
@@ -159,12 +167,12 @@ $$
 $$
 
 ```{r}
-mu <- mean(muestraUnaPersona$TIEMPO)
+media0 <- mean(muestraUnaPersona$TIEMPO)
 n <- nrow(muestraUnaPersona)
 
-estadisticoDePrueba <- (mu - mediaPoblacion) / (desvioEstandarPoblacion / sqrt(n))
+estadisticoDePrueba <- (media0- mu) / (desvioEstandarPoblacion / sqrt(n))
 
-mu
+media0
 n
 estadisticoDePrueba
 
@@ -174,18 +182,18 @@ pnorm(estadisticoDePrueba, mean = 0, sd = 1, lower.tail = TRUE) # Usamos mean = 
 Todo ese procedimiento anterior lo realiza directamente sobre la muestra el z.test(). Si no especificamos sigma.x lo calcula en base a la muestra, en nuestro caso lo calculamos en base a los datos de las 3 personas, por eso debemos indicarselo. (el z.test() no está en R-base, por eso cargamos al inicio el paquete BSDA)
 
 ```{r}
-zTestPersona <- z.test(muestraUnaPersona$TIEMPO, alternative='less', mu = mediaPoblacion, sigma.x = desvioEstandarPoblacion) # la H1 dice que la media real es menor a mu, eso se especifica con "less". Podría ser también "two.sided" o "greater" 
+zTestPersona <- z.test(muestraUnaPersona$TIEMPO, alternative='less', mu = mu, sigma.x = desvioEstandarPoblacion) # la H1 dice que la media real es menor a mu, eso se especifica con "less". Podría ser también "two.sided" o "greater" 
 zTestPersona
 ```
 
 ```{r}
 errorEstandarPoblacion <- desvioEstandarPoblacion / sqrt(n)
-rango = c(min(mediaPoblacion - 3 * errorEstandarPoblacion, mu), mediaPoblacion + 3 * errorEstandarPoblacion)
+rango = c(min(mu - 3 * errorEstandarPoblacion, media0), mu + 3 * errorEstandarPoblacion)
 ggplot(data.frame(x = rango), aes(x = rango)) +
-  stat_function(fun = dnorm, n = 101, args = list(mean = mediaPoblacion, sd = errorEstandarPoblacion)) +
-  geom_area(stat = 'function', fun = dnorm, args = list(mean = mediaPoblacion, sd = errorEstandarPoblacion), fill = '#ff0018', xlim = c(rango[1], mu), alpha = 0.5) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = mu, sd = errorEstandarPoblacion)) +
+  geom_area(stat = 'function', fun = dnorm, args = list(mean = mu, sd = errorEstandarPoblacion), fill = '#ff0018', xlim = c(rango[1], media0), alpha = 0.5) +
   geom_vline(xintercept = mu) +
-  geom_label(aes(x = mu, y = -7, label = round(mu,3)))  +
+  geom_label(aes(x = media0, y = -7, label = round(media0,3)))  +
   ylab("Densidad") + ggtitle("Distribución Normal") + xlab("tiempo de respuesta (seg)")
 ```
 
@@ -211,13 +219,13 @@ $$
 $$
 
 ```{r}
-mu <- mean(muestraUnaPersona$TIEMPO)
+media0<- mean(muestraUnaPersona$TIEMPO)
 desvioEstandarMuestra <- sd(muestraUnaPersona$TIEMPO)
 n <- nrow(muestraUnaPersona)
 
-estadisticoDePrueba <- (mu - mediaPoblacion) / (desvioEstandarMuestra / sqrt(n))
+estadisticoDePrueba <- (media0- mu) / (desvioEstandarMuestra / sqrt(n))
 
-mu
+media0
 desvioEstandarMuestra
 n
 estadisticoDePrueba
@@ -227,7 +235,7 @@ pt(estadisticoDePrueba, df = n - 1, lower.tail = TRUE)
 Todo ese procedimiento anterior lo realiza directamente sobre la muestra el t.test()
 
 ```{r}
-tTestPersona <- t.test(muestraUnaPersona$TIEMPO, alternative = "less", mu = mediaPoblacion) # la H1 dice que la media real es menor a mu, eso se especifica con "less". Podría ser también "two.sided" o "greater"
+tTestPersona <- t.test(muestraUnaPersona$TIEMPO, alternative = "less", mu = mu) # la H1 dice que la media real es menor a mu, eso se especifica con "less". Podría ser también "two.sided" o "greater"
 tTestPersona
 ```
 

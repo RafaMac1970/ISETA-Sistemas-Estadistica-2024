@@ -349,8 +349,6 @@ print(t_test_result)
 
 ```
 
-reframe(n = n(), min = min(TIEMPO), q1 = q1(TIEMPO), mediana = median(TIEMPO), q3 = q3(TIEMPO), Max = max(TIEMPO), media = mean(TIEMPO), varianza = var(TIEMPO), sd = sd(TIEMPO), cv = sd/media, EE = std.error(TIEMPO), asimetria = skewness(TIEMPO), curtosis = kurtosis(TIEMPO), "IC95-" = ic95(TIEMPO)[1], "IC95+" = ic95(TIEMPO)[2])
-
 ```{r}
 # MARIO 2, LAUTA 1, NACHO 3, RAFA 4  Estos son los índices y estan ordenados de menor a mayor
 menor <- 1
@@ -403,6 +401,8 @@ ggplot(data_tidy, aes(x = ORDEN, y = TIEMPO, color = NOMBRE)) +
   facet_wrap(vars(NOMBRE))
 ```
 
+La variable de TIEMPO fué calculada en base a la medición de DISTANCIA, por lo tanto cuando gracicamos relacionandouna variable con la otra es lógico que no haya variabilidad entre los datos y que la forma de la curva responda a un movimiento uniformemente variado (MRUV). Se muestra aquí el gráfico para que se vea claramente qué valores son más afectados.
+
 ```{r}
 ggplot(data_tidy, aes(x = DISTANCIA, y = TIEMPO, color = NOMBRE)) +
   geom_point( alpha = 0.5) +
@@ -412,13 +412,9 @@ ggplot(data_tidy, aes(x = DISTANCIA, y = TIEMPO, color = NOMBRE)) +
 
 ```
 
-```{r}
-#pnorm(x, mean=media, sd=desv.tip, lower.tail = TRUE)
-dnorm(c(-3,3), mean=0, sd=1)
-qnorm(0.95, mean=0, sd=1)
-```
-
 ## Simulación Montecarlo
+
+Se generandatos al azar repetando los parámetros calculados y suponiendo una distribución Normal.
 
 ```{r}
 indicesReflejosTiempo
