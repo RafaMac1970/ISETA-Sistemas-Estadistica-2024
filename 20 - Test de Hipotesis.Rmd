@@ -58,7 +58,7 @@ Lo que cambia en cada caso es el estadístico de prueba, es decir el valor que c
 
 ## Estadísticos de prueba.
 
-La siguiente tabla es un resumen acerca de los tipos básicos de pruebas de hipótesis. Con esta tabla podrá realizar la mayoría de las pruebas de hipótesis para variables cuantitativas. Fué tomada de: <http://>
+La siguiente tabla es un resumen acerca de los tipos básicos de pruebas de hipótesis. Con esta tabla podrá realizar la mayoría de las pruebas de hipótesis para variables cuantitativas. Fué tomada de: <https://maniqui-es.com/educacin-y-lenguas/matemticas/estadsticas/18655-manejo-de-pruebas-de-hiptesis-estadsticas.html>
 
 Nótese que no diferencia entre población y muestra, sólo muestra el aspecto matemático de la diferencia indicando el desvío estandat como sigma o S. Las pruebas sobre la población usan una distribución Z, que la Normal estandarizada. En cambio las pruebas sobre la muestra usan una distribución T de Student.
 
