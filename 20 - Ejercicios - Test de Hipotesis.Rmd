@@ -125,7 +125,6 @@ d.  Dando por cierto que los niveles de emisión registrados son realizaciones d
 e.  Concluir y explicar la conclusión en términos del fenómeno de interés.
 f.  ¿A qué población se extiende la inferencia realizada?
 
-
 ## 3. Margen bruto de maíz
 
 Una empresa productora de semillas ofrece un nuevo híbrido de maíz que ha sido puesto a prueba en 12 lotes tomados al azar dentro del partido de Pergamino. En Pergamino el costo de producción de una hectárea de maiz hibrido es de US\$ 325 y el ingreso por cada tonelada vendida es US\$ 50. Los rendimientos obtenidos en cada lote fueron los siguientes (t/ha): 7.2 10.0 8.5 8.4 8.0 7.5 9.0 9.0 8.0 7.0 6.1 8.0
