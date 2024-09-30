@@ -39,6 +39,7 @@ c.  Dando por supuesto que los datos registrados son realizaciones de variables 
 
 ```{r}
 cigarrillos <- c(0.71, 0.75, 0.67, 0.68, 0.72, 0.58, 0.69, 0.71, 0.61, 0.67, 0.75, 0.72, 0.61, 0.63, 0.75, 0.73, 0.59, 0.60, 0.64, 0.60, 0.68, 0.69, 0.78, 0.80, 0.65, 0.62, 0.64, 0.79, 0.76, 0.76)
+# write.csv(cigarrillos, "datos/cigarrillos.csv")
 ```
 
 > Primero hago el cálculo a mano. Estos datos además van a usarse para graficar. Suponemos, como indica el enunciado, que se trata de una distribución Normal. pnorm() calcula la probabilidad acumulada hasta el valor (estPrueba), consideramos la cola izquierda, por eso en este caso la usamos directamente. Si la hipótesis se planteara al revés deberíamos usar 1 - pnorm(), que calcula la cola derecha.

@@ -14,7 +14,9 @@ library(tidyverse)
 
 # ANOVA para un factor
 
-Para realizar un ANOVA usamos la función aov(), que tiene como primer parámetro el modelo lineal que deseamos evaluar. El modelo lineal genérico es:
+Para realizar un ANOVA usamos la función aov(), que tiene como primer parámetro el modelo lineal que deseamos evaluar. 
+
+El modelo lineal genérico es:
 
 $$
 Y_{ij} = \mu + \alpha_i + \epsilon_{ij}
@@ -23,13 +25,15 @@ $$
 Donde:
 
 -   Y es la variable respuesta.
--   𝝁 es la media de todos los datos juntos
--   𝜶 es el efecto de grupo (del iésimo grupo).
--   𝟄 es el residual del individuo jésimo perteneciente al iésimo grupo. Se asume que los residuales tienen distribución normal con media 0 y varianza sigma cuadrado:
+-   𝝁 es la media de todos los datos juntos, o la media del grupo de referencia (lo segundo es lo que hace R).
+-   𝜶 es el efecto de grupo (del iésimo grupo). En un ANOVA el grupo es una variable categórica, no aleatoria.
+-   𝟄 es el residual del individuo jésimo perteneciente al iésimo grupo. 
+Se asume que los residuales tienen distribución normal con media 0 y varianza sigma cuadrado:
 
 $$
 \epsilon_{ij} \sim N(0, \sigma^2)
 $$
+
 
 
 La hipótesis a probar en un ANOVA de un factor es la siguiente:
@@ -63,6 +67,13 @@ gl_{Entre} = k - 1 es el grado de libertad entre los grupos (k es la cantidad de
 gl_{Dentro} = N - k es el grado de libertad dentro de los grupos (N es el tamaño de todas las muestra juntas).
 
 Usaremos los datos de iris. Primero probamos con ancho de sépalos, y luego puede hacerlo con largo de pétalos para ver las diferencias.
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+
 
 ```{r}
 anovaModel <- aov(Sepal.Width ~ Species, data = iris)
@@ -115,9 +126,10 @@ bartlett.test(Sepal.Width ~ Species, data = iris)
 
 ### Supuestos Gráficamente
 
-```{r}
+```{r fig.height=6, fig.width=6}
 par(mfrow = c(2,2))
 plot(anovaModel, pch = 16)
+
 ```
 
 ```{r}

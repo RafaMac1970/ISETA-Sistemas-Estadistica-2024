@@ -29,7 +29,8 @@ Donde:
 -   𝜶 es el efecto de grupo iésimo del factor 𝜶.
 -   𝜷 es el efecto de grupo jésimo del factor 𝜷.
 -   𝜶*𝜷es el efecto de interacción entre ambos factores.
--   𝟄 es el residual del individuo késimo perteneciente al iésimo grupo del factor 𝜶 y el jésimo grupo del factor 𝜷. Se asume que los residuales tienen distribución normal con media 0 y varianza sigma cuadrado:
+-   𝟄 es el residual del individuo késimo perteneciente al iésimo grupo del factor 𝜶 y el jésimo grupo del factor 𝜷. 
+Se asume que los residuales tienen distribución normal con media 0 y varianza sigma cuadrado:
 
 $$
 \epsilon_{ijk} \sim N(0, \sigma^2)
@@ -236,4 +237,5 @@ bartlett.test(len ~ interaction(supp, dose), data = ToothGrowth)
 # Verificación de independencia (si es necesario)
 dwtest(modelo_toothgrowth)
 ```
+
 
