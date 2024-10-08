@@ -26,7 +26,7 @@ library(tidyverse)
 
 ```{r}
 library(readxl)
-FuelConsumption <- read_excel("datos/FuelConsumption.xlsx")
+FuelConsumption <- read_excel("../datos/FuelConsumption.xlsx")
 ```
 
 -   Asegurese de controlar el tipo de datos de cada columna. Por ejemplo, CYLINDERS debería ser integer, MAKE podría ser factor. Decida usted qué tipo de datos representa mejor a cada variable.
@@ -66,7 +66,7 @@ FuelConsumptionTidy2
 -   Guarde los datos del nuevo tibble en un archivo.csv externo. Verifique que puede leerlos fuera de R y volver a cargarlos a R.
 
 ```{r}
-write_csv(FuelConsumptionTidy2, "datos/FuelConsumptionTidy2.csv")
+write_csv(FuelConsumptionTidy2, "../datos/FuelConsumptionTidy2.csv")
 ```
 
 
@@ -74,7 +74,7 @@ write_csv(FuelConsumptionTidy2, "datos/FuelConsumptionTidy2.csv")
 
 ```{r}
 library(RSQLite)
-conn <- dbConnect(RSQLite::SQLite(), "datos/ejercicioDataFrames.db")
+conn <- dbConnect(RSQLite::SQLite(), "../datos/ejercicioDataFrames.db")
 dbWriteTable(conn, "fuelConsumptionTidy", FuelConsumptionTidy)
 dbWriteTable(conn, "fuelConsumptionTidy2", FuelConsumptionTidy2)
 dbWriteTable(conn, "fuelConsumption", FuelConsumption)
@@ -108,7 +108,7 @@ girasol
 -   Guarde esa información en un archivo .csv y en otra tabla de la base de datos SQLite.
 
 ```{r}
-write_csv(girasol, "datos/ejercicioDataFramesGirasol.csv")
+write_csv(girasol, "../datos/ejercicioDataFramesGirasol.csv")
 dbWriteTable(conn, "girasol", girasol)
 ```
 
@@ -169,7 +169,9 @@ También se puede calcular todos los índices de Tedencia Central y Varianza...
 ```{r}
 library(plotrix)
 library(moments)
-source("funciones/funcionesPersonales.R")
+source("../funciones/ic95.R")
+source("../funciones/quantiles.R")
+source("../funciones/calcularMediana.R")
 
 nombres <- c("5 pl/m2", "10 pl/m2")
 girasolTidy <- girasol %>%  pivot_longer(nombres, names_to = "Densidad", values_to = "Altura") %>% group_by(Densidad)

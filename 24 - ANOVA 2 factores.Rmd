@@ -88,8 +88,8 @@ ggplot(tgc, aes(x = dose, y = media, colour = supp)) +
 ### Con aov()
 
 ```{r}
-# anovaModel <- aov(len ~ supp + factor(dose) + supp:factor(dose), data = ToothGrowth)
-anovaModel <- aov(len ~ supp * factor(dose), data = ToothGrowth)
+anovaModel <- aov(len ~ supp + factor(dose) + supp:factor(dose), data = ToothGrowth)
+# anovaModel <- aov(len ~ supp * factor(dose), data = ToothGrowth)
 summary(anovaModel)
 
 emmeans(anovaModel, ~ supp * factor(dose))
@@ -207,6 +207,11 @@ lsdTest
 tukeyTest <- TukeyHSD(anovaModel)
 tukeyTest
 ```
+
+```{r}
+plot(tukeyTest)
+```
+
 
 ## Aquí una solución de chatgpt.
 
