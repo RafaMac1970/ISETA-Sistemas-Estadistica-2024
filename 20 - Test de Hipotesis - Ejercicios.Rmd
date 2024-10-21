@@ -1,5 +1,5 @@
 ---
-title: "20 - Ejercicios - Pruebas de Hipótesis"
+title: "20 - Pruebas de Hipótesis - Ejercicios"
 output: 
   html_notebook: 
     toc: true
