@@ -1,7 +1,9 @@
 ---
 title: "20 - Pruebas de Hipótesis - Ejercicios"
-output: 
-  html_notebook: 
+output:
+  word_document:
+    toc: true
+  html_notebook:
     toc: true
 ---
 
