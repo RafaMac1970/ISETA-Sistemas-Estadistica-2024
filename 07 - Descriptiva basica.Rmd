@@ -190,3 +190,10 @@ plot_grid(p1,p2,p3,p4, labels = "AUTO")
 ```
 
 
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x=Petal.Length, fill = Species, alpha = 0.4)) +
+  geom_histogram() +
+  geom_boxplot() 
+```
+

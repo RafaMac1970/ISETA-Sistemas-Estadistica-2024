@@ -3,6 +3,11 @@ title: "24 - ANOVA - Ejercicios"
 output: html_notebook
 ---
 
+```{r}
+library(ggplot2)
+```
+
+
 # ANOVA
 
 ## 1. Ejercicio: Rotura de lana
@@ -17,6 +22,28 @@ Se realizó un experimento para evaluar el efecto de dos factores sobre la canti
 -   ¿Qué factor tiene mayor efecto sobre las rupturas? ¿Existe interacción significativa entre ambos factores?
 -   En caso de encontrar significancia, realiza un análisis post-hoc adecuado y grafica los resultados.
 
+```{r}
+ggplot(warpbreaks, aes(x = tension, y = breaks, fill = wool, color = wool)) + geom_boxplot() + geom_jitter(width = 0.2)
+```
+
+```{r}
+lana <- warpbreaks %>% filter( tension != "L")
+lana
+```
+
+
+```{r}
+library(emmeans)
+aovWool <- aov(breaks ~ wool * tension, data = lana)
+aovWool
+summary(aovWool)
+emmeans(aovWool, ~ wool * tension)
+```
+```{r}
+plot(aovWool)
+```
+
+
 ## 2. Ejercicio: Absorción de CO2
 
 Un estudio botánico analizó la absorción de CO2 por plantas de dos tipos (Type) bajo dos tratamientos (Treatment). 
@@ -29,6 +56,11 @@ Los datos están en el dataset CO2
 -   Realice un ANOVA de dos factores con interacción entre Type y Treatment para explicar la absorción de CO2 (uptake).
 -   ¿Existe una interacción significativa entre el tipo de planta y el tratamiento aplicado?
 -   Interpreta los resultados y discute cómo se relacionan los efectos principales con la interacción.
+
+```{r}
+CO2
+```
+
 
 ## 3. Ejercicio: Efectividad de insecticidas
 

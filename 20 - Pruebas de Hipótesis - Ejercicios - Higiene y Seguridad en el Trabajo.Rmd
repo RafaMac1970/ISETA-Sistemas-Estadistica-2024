@@ -1,0 +1,138 @@
+---
+title: "20 - Pruebas de Hipótesis - Ejercicios - Higiene y Seguridad en el Trabajo"
+output:
+  word_document: default
+  html_notebook: default
+---
+
+Para cada uno de los siguientes ejercicios debe:
+
+-   Explicar cómo se obtuvieron los datos para generar las muestras.
+
+-   Formular las hipótesis adecuadas.
+
+-   Elegir un nivel de significación para esta prueba.
+
+-   Graficar los datos de la maena que le parezca más conveniente.
+
+-   Verificar los supuestos de la prueba.
+
+-   Realizar la prueba de hipótesis adecuada.
+
+-   Interpretar los resultados estadísticos.
+
+-   Interpretar los resultados en términos del problema planteado.
+
+-   Indicar a qué población puede extenderse las conclusiones del estudio.
+
+Ejercicios
+
+1.  Evaluación de ruido en distintas áreas de trabajo:\
+    Se miden los niveles de ruido en decibelios (dB) en dos áreas de una fábrica, Área A y Área B, y se quiere probar si el nivel medio de ruido en el Área A es significativamente mayor que en el Área B.
+
+```{r echo=FALSE}
+# set.seed(1)
+area_A <- rnorm(30, mean = 78, sd = 5)  # Niveles de ruido en dB para Área A
+area_B <- rnorm(30, mean = 74, sd = 5)  # Niveles de ruido en dB para Área B
+cat("Area A: ", round(area_A, digits = 1), "\n")
+cat("Area B: ", round(area_B, digits = 1))
+```
+
+2.  Comparación de lesiones antes y después de un programa de capacitación:\
+    Antes y después de implementar un programa de capacitación en seguridad, se registra el número de lesiones laborales por mes en una planta. Se quiere probar si hay una disminución significativa en las lesiones tras el programa.
+
+```{r echo=FALSE}
+# set.seed(2)
+antes <- rpois(12, lambda = 5)  # Lesiones antes de la capacitación por mes
+despues <- rpois(12, lambda = 3)  # Lesiones después de la capacitación por mes
+cat("Antes: ", round(antes, digits = 1), "\n")
+cat("Despues: ", round(despues, digits = 1))
+```
+
+3.  Incidencia de accidentes entre turnos:\
+    Se registra la cantidad de accidentes en el turno diurno y el turno nocturno en un año, y se desea probar si hay diferencias significativas en la incidencia de accidentes entre ambos turnos.
+
+```{r echo=FALSE}
+# set.seed(3)
+turno_diurno <- rpois(12, lambda = 6)  # Accidentes en el turno diurno por mes
+turno_nocturno <- rpois(12, lambda = 8)  # Accidentes en el turno nocturno por mes
+cat("Turno Diurno: ", round(turno_diurno, digits = 1), "\n")
+cat("Turno Nocturno: ", round(turno_nocturno, digits = 1))
+```
+
+4.  Comparación de uso de equipo de protección entre dos departamentos:\
+    Se observa el porcentaje de trabajadores que usan equipo de protección en los departamentos de mantenimiento y producción. Se desea saber si hay una diferencia significativa entre estos porcentajes.
+
+```{r echo=FALSE}
+# set.seed(4)
+depto_mantenimiento <- rbinom(50, size = 1, prob = 0.8)  # 1 = usa protección, 0 = no usa
+depto_produccion <- rbinom(50, size = 1, prob = 0.6)
+cat("Depto de Mantenimiento Diurno: ", round(depto_mantenimiento, digits = 1), "\n")
+cat("Depto de Produccion Nocturno: ", round(depto_produccion, digits = 1))
+```
+
+5.  Niveles de exposición a agentes químicos según la antigüedad:\
+    Los empleados se dividen en dos grupos, con menos y más de 5 años de antigüedad, y se mide su nivel promedio de exposición a un agente químico. Se quiere probar si hay una diferencia significativa en la exposición media entre ambos grupos.
+
+```{r echo=FALSE}
+# set.seed(5)
+exp_antiguos <- rnorm(30, mean = 50, sd = 10)  # Nivel de exposición para empleados con > 5 años
+exp_nuevos <- rnorm(30, mean = 55, sd = 10)  # Nivel de exposición para empleados con <= 5 años
+cat("Empleados Antiguos: ", round(exp_antiguos, digits = 1), "\n")
+cat("Empleados Nuevos: ", round(exp_nuevos, digits = 1))
+```
+
+6.  Satisfacción con las medidas de seguridad en diferentes áreas:\
+    Se realiza una encuesta de satisfacción sobre las medidas de seguridad en los departamentos de administración y producción, con puntajes de 1 a 5. Se quiere verificar si hay una diferencia en las medias de satisfacción entre ambos departamentos.
+
+```{r echo=FALSE}
+# set.seed(6)
+satisf_admin <- sample(1:5, 40, replace = TRUE, prob = c(0.05, 0.1, 0.3, 0.35, 0.2))
+satisf_produccion <- sample(1:5, 40, replace = TRUE, prob = c(0.1, 0.15, 0.25, 0.3, 0.2))
+cat("Satisfacción de empleados de Administración: ", round(satisf_admin, digits = 1), "\n")
+cat("Satisfacción de empleados de Produccion: ", round(satisf_produccion, digits = 1))
+```
+
+7.  Tiempo promedio de evacuación en simulacros entre plantas:\
+    En dos plantas de una empresa se realizan simulacros de evacuación, y se quiere probar si hay una diferencia significativa en el tiempo promedio de evacuación entre ambas plantas.
+
+```{r echo=FALSE}
+# set.seed(7)
+evac_planta1 <- rnorm(15, mean = 5, sd = 0.5)  # Tiempo de evacuación en minutos, planta 1
+evac_planta2 <- rnorm(15, mean = 4.5, sd = 0.5)  # Tiempo de evacuación en minutos, planta 2
+cat("Evacuación de Planta 1: ", round(evac_planta1, digits = 1), "\n")
+cat("Evacuación de Planta 2: ", round(evac_planta2, digits = 1))
+```
+
+8.  Comparación de accidentes en días laborales y fines de semana:\
+    Se recopila el número de accidentes ocurridos durante días laborales y fines de semana en una planta. Se quiere probar si la media de accidentes es mayor en días laborales.
+
+```{r echo=FALSE}
+# set.seed(8)
+acc_laboral <- rpois(20, lambda = 7)  # Accidentes en días laborales
+acc_fin_semana <- rpois(8, lambda = 4)  # Accidentes en fines de semana
+cat("Días Laborales: ", round(acc_laboral, digits = 1), "\n")
+cat("Fin de Semana: ", round(acc_fin_semana, digits = 1))
+```
+
+9.  Eficacia de un nuevo equipo de protección respiratoria:\
+    Se implementa un nuevo equipo de protección respiratoria en un grupo de trabajadores, y se compara la cantidad de incidentes respiratorios antes y después de su implementación para evaluar su efectividad.
+
+```{r echo=FALSE}
+# set.seed(9)
+antes_respiratorio <- rpois(10, lambda = 4)  # Incidentes respiratorios antes del equipo nuevo
+despues_respiratorio <- rpois(10, lambda = 2)  # Incidentes respiratorios después del equipo nuevo
+cat("Antes: ", round(antes_respiratorio, digits = 1), "\n")
+cat("Despues: ", round(despues_respiratorio, digits = 1))
+```
+
+10. Evaluación de contaminación por polvo antes y después de una mejora en ventilación:\
+    Se mide la cantidad de partículas de polvo en el aire en una fábrica antes y después de instalar un sistema de ventilación mejorado, y se quiere evaluar si la media de partículas disminuyó significativamente.
+
+```{r echo=FALSE}
+# set.seed(10)
+polvo_antes <- rnorm(25, mean = 120, sd = 15)  # Partículas de polvo antes de la mejora
+polvo_despues <- rnorm(25, mean = 90, sd = 15)  # Partículas de polvo después de la mejora
+cat("Polvo Antes: ", round(polvo_antes, digits = 1), "\n")
+cat("Polvo Despues: ", round(polvo_despues, digits = 1))
+```
